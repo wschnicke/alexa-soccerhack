@@ -12,10 +12,18 @@
             "name": "team",
             "type": "LIST_OF_TEAMS"
         }],
-
     }, {
         "intent": "MatchInfoIntent",
         "slots": [{
+            "name": "team",
+            "type": "LIST_OF_TEAMS"
+          }]
+    }, {
+        "intent": "AliasIntent",
+        "slots": [{
+            "name": "alias",
+            "type": "LIST_OF_ALIASES"
+          }, {
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]

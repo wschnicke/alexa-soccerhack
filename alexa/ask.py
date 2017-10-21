@@ -20,8 +20,10 @@ def hello_world():
     speech_text = 'Hello world'
     return statement(speech_text).simple_card('HelloWorld', speech_text)
 
-@ask.intent('AMAZON.HelpIntent')
+@ask.intent('HelpIntent')
 def help():
+    """Offer relevant help for HelpIntent
+    """
     speech_text = 'You can say hello to me!'
     return question(speech_text).reprompt(speech_text).simple_card('HelloWorld', speech_text)
 
@@ -33,6 +35,11 @@ def match_score(team):
 
 @ask.intent('AliasIntent')
 def alias_team(alias, team):
+    """Add alias to alias database, called by Alexa
+
+    Keyword arguments:
+    alias, team
+    """
     add = add_alias(alias, team, 123456789) # TODO: Placeholder ID for now... Need to add ID logic later
     if add == 1:
         result = 'success'

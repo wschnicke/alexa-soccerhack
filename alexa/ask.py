@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import logging, configparser
 from flask import render_template
+=======
+import logging, configparser, datetime
+>>>>>>> 0bfb02437d5b2d74f9c919598029c312e8471395
 from flask_ask import Ask, request, session, question, statement
 
 from web.flask import app
@@ -17,14 +21,40 @@ def start_soccer_stat_intent():
     welcome_msg = "this is a test message"
     return question(welcome_msg)
 
-@ask.intent('MatchScoreIntent')
-def match_score_intent(team):
+@ask.intent('LastMatchResultIntent')
+def last_match_result(team):
+    #TODO get actual data
+    #TODO handle games determined by penalty kicks
+    if team_score > opp_score:
+        speech_text = render_template('last_result_win', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    elif opp_score > team_score:
+        speech_text = render_template('last_result_loss', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    else opp_score == team_score:
+        speech_text = render_template('last_result_draw', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    return statement(speech_text)
+
+
+@ask.intent('CurrentMatchStatusIntent')
+def current_match_score(team):
     #TODO: call api to get match score data, set score
     one_score="1"
     two_score="123"
     opp="bad guys"
-    speech_text = render_template('score', team=team, team_score=one_score, opponent=opp, opp_score=two_score)
-    return statement(speech_text).simple_card("Match Score", speech_text)
+    minute ="20"
+    speech_text = render_template('current_status', team=team, team_score=one_score, opponent=opp, opp_score=two_score, minute = minute)
+    return statement(speech_text)
+
+@ask.intent('NextMatchTimeIntent')
+def match_time(team):
+    #TODO actually get the right data
+    timestamp = "1234000000"
+    start_time = datetime.fromtimestap(timestamp)
+
+    speech_text = render_template('next_match_time', team=team,
+        opponent=opponent, day = start_time.day, month = start_time.month,
+        year = start_time.year, hour = start_time.hour,
+        minutes = start_time.minute)
+    return statement(speech_text)
 
 @ask.intent('HelloWorldIntent')
 def hello_world_intent():

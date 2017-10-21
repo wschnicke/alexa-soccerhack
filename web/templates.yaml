@@ -1,4 +1,5 @@
-score: "The score for the {{team}} game is {{team}} {{team_score}}, {{opponent}} {{opp_score}}."
+current_status: "The score for the {{team}} match is {{team}} {{team_score}},
+  {{opponent}} {{opp_score}} at minute {{ minute }}."
 
 alias_success: "{{alias}} is now an alias for team {{team}}."
 
@@ -7,3 +8,16 @@ alias_replace: "Replaced alias {{alias}} for team {{team}}."
 alias_same: "{{alias}} already exists as an alias for team {{team}}."
 
 alias_fail: "Failed setting {{alias}} as an alias for {{team}}."
+
+next_match_time: "The next {{ team }} match is against {{ opponent }} and starts on
+  <say-as interpret-as="date" format="mdy">{{ month }}{{ day }}{{ year }}<say-as/>
+  at <say-as interpret-as=time>{{ hour }'{{ minutes }}"<say-as/>}."
+
+last_result_win: "{{ team }} won the match against {{ opponent }}
+  with a score of {{ team_score }} to {{ opp_score }}"
+
+last_result_win: "{{ team }} lost the match against {{ opponent }}
+  with a score of {{ team_score }} to {{ opp_score }}"
+
+last_result_draw: "{{ team }} drew the match against {{ opponent }}
+  with a score of {{ team_score }} to {{ opp_score }}"

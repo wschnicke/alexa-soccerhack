@@ -4,7 +4,14 @@ import os
 from flask import Flask
 from flask_ask import Ask, request, session, question, statement
 
-app = Flask(__name__)
+from web.routes import routes
+
+app = Flask(__name__,  template_folder="web")
+
+# Front-end web logic
+app.register_blueprint(routes)
+
+# Alexa logic
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 
@@ -26,6 +33,8 @@ def help():
 @ask.session_ended
 def session_ended():
     return "{}", 200
+
+# Main
 
 if __name__ == '__main__':
     if 'ASK_VERIFY_REQUESTS' in os.environ:

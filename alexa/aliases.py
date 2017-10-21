@@ -2,11 +2,16 @@ import json, codecs
 
 data = {}
 
+# 3 = existed, 2 = replaced, 1 = success, 0 = fail
 def add_alias(alias, team, team_id):
     with codecs.open('data/aliases.json', 'r+', encoding='utf-8') as f:
         # If found, alert console that it is being replaced
         if alias in data:
-            print("Replacing alias: " + alias + ": " + json.dumps(data[alias]))
+            if (data[alias].team == alias):
+                print("Replacing alias: " + alias + ": " + json.dumps(data[alias]))
+                return 2
+            else:
+                return 3
         # Edit dict
         data[alias] = {'id': team_id, 'name': team} # <--- add `id` value.
         # Replace file contents
@@ -15,6 +20,8 @@ def add_alias(alias, team, team_id):
         f.truncate()     # remove remaining part
         # Alert console
         print("Added alias: " + alias + ": " + json.dumps(data[alias]))
+        return 1
+    return 0
 
 # Delete alias if it exists, returning value or None
 def remove_alias(alias):
@@ -34,8 +41,6 @@ try:
         data = json.load(f)
         print("Aliases loaded:")
         print(data)
-        add_alias("Cinci", "FC Cincinatti", 123) # Example alias add
-
 except FileNotFoundError:
     print("Aliases file does not exist...creating it:")
     with open(aliases_file, 'w') as f:

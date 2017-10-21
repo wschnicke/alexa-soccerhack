@@ -1,1 +1,20 @@
-enter soccer team names here
+Burnley
+Leicester City
+Brighton ad Hove Albion
+Watford
+Liverpool
+Southampton
+Chelsea
+Stoke City
+West Ham United
+Manchester United
+Everton
+Huddersfled Town
+Bournemouth
+Swansea City
+Crystal Palace
+Arsenal
+Newcastle United
+Manchester City
+West Bromwich Albion
+Tottenham Hotspur

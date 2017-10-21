@@ -2,6 +2,7 @@ import logging, configparser
 from flask_ask import Ask, request, session, question, statement
 
 from web.flask import app
+from .aliases import *
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)

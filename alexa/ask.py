@@ -3,6 +3,7 @@ from flask_ask import Ask, request, session, question, statement
 
 from web.flask import app
 from .aliases import *
+from flask import render_template
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
@@ -11,25 +12,18 @@ config.read('config.ini')
 api_key = config['DEFAULT']['APIkey']
 
 @ask.launch
-def launch():
-    speech_text = 'Welcome to the Alexa Skills Kit, you can say hello'
-    return question(speech_text).reprompt(speech_text).simple_card('HelloWorld', speech_text)
+def start_soccer_stat():
+    welcome_msg = "this is a test message"
+    return question(welcome_msg)
 
 @ask.intent('MatchScoreIntent')
 def match_score(team):
     #TODO: call api to get match score data, set score
-    speech_text = render_template('score', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    one_score="1"
+    two_score="123"
+    opp="bad guys"
+    speech_text = render_template('score', team=team, team_score=one_score, opponent=opp, opp_score=two_score)
     return statement(speech_text)
-
-@ask.intent('HelloWorldIntent')
-def hello_world():
-    speech_text = 'Hello world'
-    return statement(speech_text).simple_card('HelloWorld', speech_text)
-
-@ask.intent('AMAZON.HelpIntent')
-def help():
-    speech_text = 'You can say hello to me!'
-    return question(speech_text).reprompt(speech_text).simple_card('HelloWorld', speech_text)
 
 @ask.session_ended
 def session_ended():

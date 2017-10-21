@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 # this script will
 base_url = 'https://api.crowdscores.com/v1/'
 

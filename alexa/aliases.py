@@ -1,11 +1,7 @@
 import json, codecs
+from .teams import get_team
 
 aliases = {}
-team_list = {}
-
-with open('data/team_list.json') as team_list:
-    team_list = json.load(team_list)
-    print ('Loaded teams list with ' + str(len(team_list)) + ' entries')
 
 def add_alias(alias, team):
     """Adds an same into alias database
@@ -18,23 +14,20 @@ def add_alias(alias, team):
     if type(alias) is not str or len(alias) < 2: # Invalid input
         return 0
     alias = alias.upper()
-    team_id = None
-    for k, v in team_list.items():
-        if k.lower() == team.lower():
-            team = k
-            team_id = v
-            break
-    if team_id == None:
-        print("Attempted alias (" + alias + ") for team (" + team + ") but team did not exist")
+    team_result = get_team(team)
+    if team_result == None:
+        #print("Attempted alias (" + alias + ") for team (" + team + ") but team did not exist")
         return 0
+    team_id = team_result[0]
+    team_name = team_result[1]
     with codecs.open('data/aliases.json', 'r+', encoding='utf-8') as f:
         # If found, alert console that it is being replaced
         if alias in aliases:
             if (aliases[alias]["name"] != team):
-                print("Replacing alias: " + alias + ": " + json.dumps(aliases[alias]))
+                #print("Replacing alias: " + alias + ": " + json.dumps(aliases[alias]))
                 return 2
             else:
-                print("Alias (" + alias + ") for (" + team + ") existed and was same")
+                #print("Alias (" + alias + ") for (" + team + ") existed and was same")
                 return 3
         # Edit dict
         aliases[alias] = {'id': team_id, 'name': team} # <--- add `id` value.
@@ -43,7 +36,7 @@ def add_alias(alias, team):
         json.dump(aliases, f, indent=4)
         f.truncate()     # remove remaining part
         # Alert console
-        print("Added alias: " + alias + ": " + json.dumps(aliases[alias]))
+        #print("Added alias: " + alias + ": " + json.dumps(aliases[alias]))
         return 1
     return 0
 
@@ -54,17 +47,17 @@ def remove_alias(alias):
     alias
     """
     alias = alias.upper
-    return data.pop(alias, None) # None here prevents the error if key is not found
+    return aliases.pop(alias, None) # None here prevents the error if key is not found
 
-def get_team(alias):
+def get_team_from_alias(alias):
     """Get a team ID and object given alias or return None
 
     Keyword arguments:
     alias
     """
     alias = alias.upper
-    if alias in data:
-        return data[alias]
+    if alias in aliases:
+        return aliases[alias]
     return None
 
 # Load aliases file

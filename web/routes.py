@@ -5,5 +5,5 @@ routes = Blueprint('index', __name__)
 
 @routes.route('/')
 def index():
-    fakemsg()
+    fakemsg() # Call fake messages
     return render_template('index.html')

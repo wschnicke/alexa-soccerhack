@@ -1,6 +1,23 @@
 import json
 
 teams = {}
+tracked_teams = []
+
+def track_team(team_id: int):
+    """Add team to tracking list given id
+    """
+    if (team_id not in tracked_teams):
+        tracked_teams.append(team_id)
+        return 1
+    return 0
+
+def untrack_team(team_id: int):
+    """ Remove team from tracking list given id
+    """
+    if (team_id in tracked_teams):
+        tracked_teams.remove(team_id)
+        return 1
+    return 0
 
 def get_team_id(team_name: str):
     """Returns teamid of given team name or None if not found

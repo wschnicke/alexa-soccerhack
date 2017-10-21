@@ -25,7 +25,7 @@ class TestTeams(unittest.TestCase):
         self.assertEqual(get_team_name(8), "Stoke City")
 
     def test_get_team_name_doesnt_exist(self):
-        self.assertEqual(get_team_name(11111) ,None)
+        self.assertEqual(get_team_name(11111), None)
 
 if __name__ == '__main__':
     unittest.main()

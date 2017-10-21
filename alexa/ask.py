@@ -16,13 +16,35 @@ def start_soccer_stat():
     welcome_msg = "this is a test message"
     return question(welcome_msg)
 
-@ask.intent('MatchScoreIntent')
-def match_score(team):
+@ask.intent('LastMatchResultIntent')
+def last_match_result(team):
+    #TODO get actual data
+    #TODO handle games determined by penalty kicks
+    if team_score > opp_score:
+        speech_text = render_template('last_result_win', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    elif opp_score > team_score:
+        speech_text = render_template('last_result_loss', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    else opp_score == team_score:
+        speech_text = render_template('last_result_draw', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    return statement(speech_text)
+
+
+@ask.intent('CurrentMatchStatusIntent')
+def current_match_score(team):
     #TODO: call api to get match score data, set score
     one_score="1"
     two_score="123"
     opp="bad guys"
-    speech_text = render_template('score', team=team, team_score=one_score, opponent=opp, opp_score=two_score)
+    minute ="20"
+    speech_text = render_template('current_status', team=team, team_score=one_score, opponent=opp, opp_score=two_score, minute = minute)
+    return statement(speech_text)
+
+@ask.intent('NextMatchTimeIntent')
+def match_time(team)
+    #TODO actually get the right data
+    timestamp = "1234000000"
+
+    speech_text = render_template('next_match_time', team=team, time=time)
     return statement(speech_text)
 
 @ask.intent('HelloWorldIntent')

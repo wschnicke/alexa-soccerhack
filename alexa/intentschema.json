@@ -1,25 +1,26 @@
 {
     "intents": [{
-        "intent": "MatchScoreIntent",
+        "intent": "CurrentMatchStatusIntent",
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
 
     }, {
-        "intent": "MatchTimeIntent",
+        "intent": "NextMatchTimeIntent",
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
         }]
 
-    }, {
-        "intent": "MatchInfoIntent",
+    },{
+        "intent": "LastMatchResultIntent",
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
-    }, {
+
+    },{
         "intent": "AliasIntent",
         "slots": [{
             "name": "alias",

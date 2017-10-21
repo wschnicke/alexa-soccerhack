@@ -17,7 +17,7 @@ def fakemsg():
     """
     Send some fake messages via sockets to client
     """
-    message("FC Barcalona", "FC Cincinnati", 0, 0, "0:22", "Lionel Messi scored!")
-    message("FC Barcalona", "FC Cincinnati", 1, 0, "1:30", "Lionel Messi scored!")
-    message("FC Barcalona", "FC Cincinnati", 2, 0, "2:30", "Lionel Messi scored!")
+    message("FC Barcalona", "FC Cincinnati", 0, 0, "0'", "Lionel Messi scored!")
+    message("FC Barcalona", "FC Cincinnati", 1, 0, "1'", "Lionel Messi scored!")
+    message("FC Barcalona", "FC Cincinnati", 2, 0, "3'", "Lionel Messi scored!")
     print("fake messages sent")

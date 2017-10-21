@@ -4,7 +4,14 @@ import configparser
 
 from flask import Flask
 from flask_ask import Ask, request, session, question, statement
+from web.routes import routes
 
+app = Flask(__name__,  template_folder="web")
+ 
+# Front-end web logic
+app.register_blueprint(routes)
+
+# Alexa logic
 app = Flask(__name__)
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)

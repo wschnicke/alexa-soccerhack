@@ -8,7 +8,7 @@ with open('data/team_list.json') as team_list:
     print ('Loaded teams list with ' + str(len(team_list)) + ' entries')
 
 def add_alias(alias, team):
-    """Adds an alias into alias database
+    """Adds an same into alias database
 
     3 = existed, 2 = replaced, 1 = success, 0 = fail
 
@@ -16,16 +16,17 @@ def add_alias(alias, team):
     alias, team
     """
     if team not in team_list:
-        print("Attempted alias " + alias + " for " + team + " but did not exist")
+        print("Attempted alias (" + alias + ") for team (" + team + ") but team did not exist")
         return 0
     team_id = team_list[team]
     with codecs.open('data/aliases.json', 'r+', encoding='utf-8') as f:
         # If found, alert console that it is being replaced
         if alias in aliases:
-            if (aliases[alias].team == alias):
+            if (aliases[alias].team != team):
                 print("Replacing alias: " + alias + ": " + json.dumps(aliases[alias]))
                 return 2
             else:
+                print("Alias (" + alias + ") for (" + team + ") existed and was same")
                 return 3
         # Edit dict
         aliases[alias] = {'id': team_id, 'name': team} # <--- add `id` value.

@@ -19,6 +19,11 @@ def untrack_team(team_id: int):
         return 1
     return 0
 
+def team_tracked(team_id: int):
+    """ returns whether or not team is already tracked_teams
+    """
+    return team_id in tracked_teams
+
 def get_team_id(team_name: str):
     """Returns teamid of given team name or None if not found
     """

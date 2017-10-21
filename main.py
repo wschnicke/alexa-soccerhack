@@ -1,12 +1,10 @@
-import logging
-import os
+import logging, os, configparser
 
-from flask import Flask
-from flask_ask import Ask, request, session, question, statement
-
+from web.flask import app
 from web.routes import routes
-s
-app = Flask(__name__,  template_folder="web")
+from web.sockets import socketio
+
+from flask_ask import Ask, request, session, question, statement
 
 # Front-end web logic
 app.register_blueprint(routes)
@@ -14,6 +12,9 @@ app.register_blueprint(routes)
 # Alexa logic
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
+config = configparser.ConfigParser()
+config.read('config.ini')
+api_key = config['DEFAULT']['APIkey']
 
 @ask.launch
 def launch():
@@ -41,10 +42,9 @@ def session_ended():
     return "{}", 200
 
 # Main
-
 if __name__ == '__main__':
     if 'ASK_VERIFY_REQUESTS' in os.environ:
         verify = str(os.environ.get('ASK_VERIFY_REQUESTS', '')).lower()
         if verify == 'false':
             app.config['ASK_VERIFY_REQUESTS'] = False
-    app.run(debug=True)
+    socketio.run(app, debug=True)

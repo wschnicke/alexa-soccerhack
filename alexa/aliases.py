@@ -8,9 +8,6 @@ with open('data/team_list.json') as team_list:
     print ('Loaded teams list with ' + str(len(team_list)) + ' entries')
 
 def add_alias(alias, team):
-    if type(alias) is not str or len(alias) < 2: # Invalid input
-        return 0
-    alias = alias.upper()
     """Adds an same into alias database
 
     3 = existed, 2 = replaced, 1 = success, 0 = fail
@@ -18,14 +15,15 @@ def add_alias(alias, team):
     Keyword arguments:
     alias, team
     """
+    if type(alias) is not str or len(alias) < 2: # Invalid input
+        return 0
+    alias = alias.upper()
     team_id = None
-    print("adf")
     for k, v in team_list.items():
         if k.lower() == team.lower():
             team = k
             team_id = v
             break
-    print("sdk")
     if team_id == None:
         print("Attempted alias (" + alias + ") for team (" + team + ") but team did not exist")
         return 0

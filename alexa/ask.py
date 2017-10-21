@@ -23,7 +23,7 @@ def match_score(team):
     two_score="123"
     opp="bad guys"
     speech_text = render_template('score', team=team, team_score=one_score, opponent=opp, opp_score=two_score)
-    return statement(speech_text)
+    return statement(speech_text).simple_card("Match Score", speech_text)
 
 @ask.intent('HelloWorldIntent')
 def hello_world():
@@ -53,7 +53,7 @@ def alias_team(alias, team):
         result = 'same'
     else:
         result = 'fail'
-    return render_template('alias_' + result, alias=alias, team=team)
+    return render_template('alias_' + result, alias=alias, team=team).simple_card("Alias", speech_text)
 
 @ask.session_ended
 def session_ended():

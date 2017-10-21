@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import logging, configparser
-from flask import render_template
-=======
 import logging, configparser, datetime
->>>>>>> 0bfb02437d5b2d74f9c919598029c312e8471395
+from flask import render_template
 from flask_ask import Ask, request, session, question, statement
 
 from web.flask import app
@@ -29,7 +25,7 @@ def last_match_result(team):
         speech_text = render_template('last_result_win', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
     elif opp_score > team_score:
         speech_text = render_template('last_result_loss', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
-    else opp_score == team_score:
+    else:
         speech_text = render_template('last_result_draw', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
     return statement(speech_text)
 

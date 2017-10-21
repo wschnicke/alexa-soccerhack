@@ -8,3 +8,5 @@ AliasIntent let {alias} be an alias for {team}
 AliasIntent {alias} means {team}
 AliasIntent alias {alias} with {team}
 AliasIntent alias {alias} to {team}
+TrackTeamIntent track {team}
+TrackTeamIntent watch {team}

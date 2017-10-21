@@ -29,5 +29,11 @@
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
+    }, {
+        "intent": "TrackTeamIntent",
+        "slots": [{
+            "name": "team",
+            "type": "LIST_OF_TEAMS"
+          }]
     }]
 }

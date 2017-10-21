@@ -2,11 +2,13 @@ import requests, configparser
 import json
 from datetime import datetime, timedelta
 
+
 #TODO: figure out where we should actually get this
 # get api_key
 config = configparser.ConfigParser()
 config.read('../config.ini')
 api_key = config['DEFAULT']['APIkey']
+
 # this script will
 base_url = 'https://api.crowdscores.com/v1/'
 

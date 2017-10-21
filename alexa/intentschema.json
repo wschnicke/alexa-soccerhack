@@ -1,29 +1,37 @@
 {
     "intents": [{
-        "intent": "MatchScoreIntent",
+        "intent": "CurrentMatchStatusIntent",
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
 
     }, {
-        "intent": "MatchTimeIntent",
+        "intent": "NextMatchTimeIntent",
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
-        }],
-    }, {
-        "intent": "MatchInfoIntent",
+        }]
+
+    },{
+        "intent": "LastMatchResultIntent",
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
-    }, {
+
+    },{
         "intent": "AliasIntent",
         "slots": [{
             "name": "alias",
             "type": "LIST_OF_ALIASES"
           }, {
+            "name": "team",
+            "type": "LIST_OF_TEAMS"
+          }]
+    }, {
+        "intent": "TrackTeamIntent",
+        "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]

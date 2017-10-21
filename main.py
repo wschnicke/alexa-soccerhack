@@ -1,9 +1,9 @@
 import logging
 import os
+import configparser
 
 from flask import Flask
 from flask_ask import Ask, request, session, question, statement
-
 from web.routes import routes
 
 app = Flask(__name__,  template_folder="web/templates", static_folder="web/static")
@@ -12,8 +12,11 @@ app = Flask(__name__,  template_folder="web/templates", static_folder="web/stati
 app.register_blueprint(routes)
 
 # Alexa logic
+app = Flask(__name__)
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
+config = configparser.ConfigParser()
+api_key = config['DEFAULT']['APIkey']
 
 @ask.launch
 def launch():
@@ -33,8 +36,6 @@ def help():
 @ask.session_ended
 def session_ended():
     return "{}", 200
-
-# Main
 
 if __name__ == '__main__':
     if 'ASK_VERIFY_REQUESTS' in os.environ:

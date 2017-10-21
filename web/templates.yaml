@@ -1,5 +1,9 @@
-score: The score for the {{team}} game is {{team}} {{team_score}}, {{opponent}} {{opp_score}}
-alias_success: {{alias}} is now an alias for team {{team}}
-alias_replace: replaced alias {{alias}} for team {{team}}
-alias_same: {{alias}} already exists as an alias for team {{team}}
-alias_fail: Failed setting {{alias}} as an alias for {{team}}
+score: "The score for the {{team}} game is {{team}} {{team_score}}, {{opponent}} {{opp_score}}."
+
+alias_success: "{{alias}} is now an alias for team {{team}}."
+
+alias_replace: "replaced alias {{alias}} for team {{team}}."
+
+alias_same: "{{alias}} already exists as an alias for team {{team}}."
+
+alias_fail: "Failed setting {{alias}} as an alias for {{team}}."

@@ -1,12 +1,10 @@
-import logging, os
-
-from threading import Thread
+import logging, os, configparser
 
 from web.flask import app
-from flask_ask import Ask, request, session, question, statement
-
 from web.routes import routes
 from web.sockets import socketio
+
+from flask_ask import Ask, request, session, question, statement
 
 # Front-end web logic
 app.register_blueprint(routes)
@@ -14,6 +12,9 @@ app.register_blueprint(routes)
 # Alexa logic
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
+config = configparser.ConfigParser()
+config.read('config.ini')
+api_key = config['DEFAULT']['APIkey']
 
 @ask.launch
 def launch():

@@ -1,1 +1,37 @@
-blank file for now
+{
+
+    "intents": [{
+
+        "intent": "MatchScoreIntent"
+        "slots": [{
+            "name: "team",
+            "type": "LIST_OF_TEAMS"
+          }]
+
+    }, {
+
+        "intent": "AnswerIntent",
+
+        "slots": [{
+
+            "name": "first",
+
+            "type": "AMAZON.NUMBER"
+
+        }, {
+
+            "name": "second",
+
+            "type": "AMAZON.NUMBER"
+
+        }, {
+
+            "name": "third",
+
+            "type": "AMAZON.NUMBER"
+
+        }]
+
+    }]
+
+}

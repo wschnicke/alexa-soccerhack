@@ -6,8 +6,6 @@ from flask import Flask
 from flask_ask import Ask, request, session, question, statement
 from web.routes import routes
 
-app = Flask(__name__,  template_folder="web")
- 
 app = Flask(__name__,  template_folder="web/templates", static_folder="web/static")
 
 # Front-end web logic

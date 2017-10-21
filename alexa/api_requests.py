@@ -15,13 +15,13 @@ def get_last_match(team1_id: str, team2_id: str):
 
 #TODO: update all these to not store the response
 
-def request_teams(params: dict):
+def request_teams(payload: dict):
     """make request of team list, returns json object
     see https://docs.crowdscores.com/#page:teams,header:teams-team-list
-    params must contain api_key field, and any other parameters needed
+    payload must contain api_key field, and any other parameters needed
     """
-    r = requests.get(base_url + 'teams', params)
-    return r.text
+    return requests.get(base_url + 'teams', params=payload).text
+
 
 def request_team_details(team_id: str, api_key: str):
     """make request of team details, returns json object
@@ -30,12 +30,12 @@ def request_team_details(team_id: str, api_key: str):
     r = requests.get(base_url + 'teams/' + team_id + '?api_key=' + api_key)
     return r.text
 
-def request_matches(params: dict):
+def request_matches(payload: dict):
     """ake request of matches, returns json object
     see https://docs.crowdscores.com/#page:matches,header:matches-matches-list
-    params must contain api_key field, and any other parameters needed
+    payload must contain api_key field, and any other parameters needed
     """
-    r = requests.get(base_url + 'matches', params)
+    r = requests.get(base_url + 'matches', params=payload)
     return r.text
 
 def request_match_details(match_id: str, api_key: str):
@@ -56,14 +56,22 @@ def request_competitions(api_key: str):
     return r.text
 
 
-def request_rounds(params: dict):
+def request_rounds(payload: dict):
     """make request of rounds, returns json object
     you should really only do this for a given comp
     see https://docs.crowdscores.com/#page:rounds,header:rounds-rounds
-    params must contain api_key field, and any other parameters needed
+    payload must contain api_key field, and any other parameters needed
     """
-    r = requests.get(base_url + 'rounds', params)
+    r = requests.get(base_url + 'rounds', params=payload)
     return r.text
+
+def request_tables(payload: dict):
+    """make request of league tables, returns json object
+    you should really only do this for a given comp
+    see https://docs.crowdscores.com/#page:rounds,header:rounds-rounds
+    payload must contain api_key field, and any other parameters needed
+    """
+    return request.get(base_url +'league_tables', params=payload)
 
 # After here, these requests give static information,
 # which should be cached rather than called regularly

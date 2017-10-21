@@ -1,9 +1,18 @@
 import json, codecs
 
 data = {}
+team_list = {}
+
+with open('data/team_list.json') as team_list:
+    team_list = json.load(team_list)
+    print ('Loaded teams list with ' + str(len(team_list)) + ' entries')
 
 # 3 = existed, 2 = replaced, 1 = success, 0 = fail
-def add_alias(alias, team, team_id):
+def add_alias(alias, team):
+    if team not in team_list:
+        print("Attempted alias " + alias + " for " + team + " but did not exist")
+        return 0
+    team_id = team_list[team]
     with codecs.open('data/aliases.json', 'r+', encoding='utf-8') as f:
         # If found, alert console that it is being replaced
         if alias in data:

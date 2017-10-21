@@ -13,6 +13,7 @@
             "type": "LIST_OF_TEAMS"
         }],
 
+    }, {
         "intent": "MatchInfoIntent",
         "slots": [{
             "name": "team",

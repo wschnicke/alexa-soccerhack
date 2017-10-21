@@ -37,12 +37,6 @@ def help():
     speech_text = 'You can say hello to me!'
     return question(speech_text).reprompt(speech_text).simple_card('HelloWorld', speech_text)
 
-@ask.intent('MatchScoreIntent')
-def match_score(team):
-    #TODO: call api to get match score data, set score
-    speech_text = render_template('score', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
-    return statement(speech_text)
-
 @ask.intent('AliasIntent')
 def alias_team(alias, team):
     """Add alias to alias database, called by Alexa
@@ -50,7 +44,7 @@ def alias_team(alias, team):
     Keyword arguments:
     alias, team
     """
-    add = add_alias(alias, team, 123456789) # TODO: Placeholder ID for now... Need to add ID logic later
+    add = add_alias(alias, team)
     if add == 1:
         result = 'success'
     elif result == 2:

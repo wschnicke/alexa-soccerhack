@@ -1,36 +1,26 @@
 {
 
     "intents": [{
-
         "intent": "MatchScoreIntent"
         "slots": [{
-            "name: "team",
+            "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
 
     }, {
-
-        "intent": "AnswerIntent",
+        "intent": "MatchTimeIntent",
 
         "slots": [{
-
-            "name": "first",
-
-            "type": "AMAZON.NUMBER"
-
-        }, {
-
-            "name": "second",
-
-            "type": "AMAZON.NUMBER"
-
-        }, {
-
-            "name": "third",
-
-            "type": "AMAZON.NUMBER"
-
+            "name": "team",
+            "type": "LIST_OF_TEAMS"
         }]
+
+        "intent": "MatchInfoIntent",
+
+        "slots": [{
+            "name": "team",
+            "type": "LIST_OF_TEAMS"
+          }]
 
     }]
 

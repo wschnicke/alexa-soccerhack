@@ -1,1 +1,6 @@
-empty file for now
+MatchScoreIntent what is the {team} score
+MatchScoreIntent what is the score for the {team} match
+MatchScoreIntent match score for {team}
+MatchScoreIntent score for {team}
+MatchScoreIntent {team} match score
+MatchScoreIntent {team} score

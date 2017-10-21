@@ -1,1 +1,1 @@
-empty speech template
+score: The score for the {{team}} game is {{team}} {{team_score}}, {{opponent}} {{opp_score}}

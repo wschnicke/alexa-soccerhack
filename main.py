@@ -1,12 +1,12 @@
-import logging
-import os
+import logging, os
 
-from flask import Flask
+from threading import Thread
+
+from web.flask import app
 from flask_ask import Ask, request, session, question, statement
 
 from web.routes import routes
-
-app = Flask(__name__,  template_folder="web/templates", static_folder="web/static")
+from web.sockets import socketio
 
 # Front-end web logic
 app.register_blueprint(routes)
@@ -35,10 +35,9 @@ def session_ended():
     return "{}", 200
 
 # Main
-
 if __name__ == '__main__':
     if 'ASK_VERIFY_REQUESTS' in os.environ:
         verify = str(os.environ.get('ASK_VERIFY_REQUESTS', '')).lower()
         if verify == 'false':
             app.config['ASK_VERIFY_REQUESTS'] = False
-    app.run(debug=True)
+    socketio.run(app, debug=True)

@@ -35,6 +35,7 @@ def current_match_score(team):
     one_score="1"
     two_score="123"
     opp="bad guys"
+<<<<<<< HEAD
     minute ="20"
     speech_text = render_template('current_status', team=team, team_score=one_score, opponent=opp, opp_score=two_score, minute = minute)
     return statement(speech_text)
@@ -46,6 +47,10 @@ def match_time(team)
 
     speech_text = render_template('next_match_time', team=team, time=time)
     return statement(speech_text)
+=======
+    speech_text = render_template('score', team=team, team_score=one_score, opponent=opp, opp_score=two_score)
+    return statement(speech_text).simple_card("Match Score", speech_text)
+>>>>>>> d065e451f277722a22b3ae372fae018ae8b1d9da
 
 @ask.intent('HelloWorldIntent')
 def hello_world():
@@ -67,15 +72,15 @@ def alias_team(alias, team):
     alias, team
     """
     add = add_alias(alias, team)
+    result = 'fail'
     if add == 1:
         result = 'success'
-    elif result == 2:
+    elif add == 2:
         result = 'replace'
-    elif result == 3:
+    elif add == 3:
         result = 'same'
-    else:
-        result = 'fail'
-    return render_template('alias_' + result, alias=alias, team=team)
+    speech_text = render_template('alias_' + result, alias=alias, team=team)
+    return statement(speech_text).simple_card("Alias", speech_text)
 
 @ask.session_ended
 def session_ended():

@@ -45,15 +45,15 @@ def alias_team(alias, team):
     alias, team
     """
     add = add_alias(alias, team)
+    result = 'fail'
     if add == 1:
         result = 'success'
-    elif result == 2:
+    elif add == 2:
         result = 'replace'
-    elif result == 3:
+    elif add == 3:
         result = 'same'
-    else:
-        result = 'fail'
-    return render_template('alias_' + result, alias=alias, team=team).simple_card("Alias", speech_text)
+    speech_text = render_template('alias_' + result, alias=alias, team=team)
+    return statement(speech_text).simple_card("Alias", speech_text)
 
 @ask.session_ended
 def session_ended():

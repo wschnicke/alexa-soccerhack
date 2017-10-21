@@ -8,6 +8,7 @@ with open('data/team_list.json') as team_list:
     print ('Loaded teams list with ' + str(len(team_list)) + ' entries')
 
 def add_alias(alias, team):
+    alias = alias.upper()
     """Adds an same into alias database
 
     3 = existed, 2 = replaced, 1 = success, 0 = fail
@@ -15,14 +16,21 @@ def add_alias(alias, team):
     Keyword arguments:
     alias, team
     """
-    if team not in team_list:
+    team_id = None
+    print("adf")
+    for k, v in team_list.items():
+        if k.lower() == team.lower():
+            team = k
+            team_id = v
+            break
+    print("sdk")
+    if team_id == None:
         print("Attempted alias (" + alias + ") for team (" + team + ") but team did not exist")
         return 0
-    team_id = team_list[team]
     with codecs.open('data/aliases.json', 'r+', encoding='utf-8') as f:
         # If found, alert console that it is being replaced
         if alias in aliases:
-            if (aliases[alias].team != team):
+            if (aliases[alias]["name"] != team):
                 print("Replacing alias: " + alias + ": " + json.dumps(aliases[alias]))
                 return 2
             else:
@@ -32,7 +40,7 @@ def add_alias(alias, team):
         aliases[alias] = {'id': team_id, 'name': team} # <--- add `id` value.
         # Replace file contents
         f.seek(0)        # <--- should reset file position to the beginning.
-        json.dump(data, f, indent=4)
+        json.dump(aliases, f, indent=4)
         f.truncate()     # remove remaining part
         # Alert console
         print("Added alias: " + alias + ": " + json.dumps(aliases[alias]))
@@ -45,6 +53,7 @@ def remove_alias(alias):
     Keyword arguments:
     alias
     """
+    alias = alias.upper
     return data.pop(alias, None) # None here prevents the error if key is not found
 
 def get_team(alias):
@@ -53,6 +62,7 @@ def get_team(alias):
     Keyword arguments:
     alias
     """
+    alias = alias.upper
     if alias in data:
         return data[alias]
     return None
@@ -63,8 +73,7 @@ aliases_file = 'data/aliases.json'
 try:
     with codecs.open(aliases_file, 'r+', encoding='utf-8') as f:
         aliases = json.load(f)
-        print("Aliases loaded:")
-        print(aliases)
+        print(str(len(aliases)) + " aliases loaded.")
 except FileNotFoundError:
     print("Aliases file does not exist...creating it:")
     with open(aliases_file, 'w') as f:

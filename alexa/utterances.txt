@@ -6,3 +6,5 @@ MatchScoreIntent {team} match score
 MatchScoreIntent {team} score
 AliasIntent let {alias} be an alias for {team}
 AliasIntent {alias} means {team}
+AliasIntent alias {alias} with {team}
+AliasIntent alias {alias} to {team}

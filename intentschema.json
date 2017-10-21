@@ -1,7 +1,6 @@
 {
-
     "intents": [{
-        "intent": "MatchScoreIntent"
+        "intent": "MatchScoreIntent",
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
@@ -9,19 +8,15 @@
 
     }, {
         "intent": "MatchTimeIntent",
-
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
-        }]
+        }],
 
         "intent": "MatchInfoIntent",
-
         "slots": [{
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
-
     }]
-
 }

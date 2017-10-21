@@ -8,6 +8,8 @@ with open('data/team_list.json') as team_list:
     print ('Loaded teams list with ' + str(len(team_list)) + ' entries')
 
 def add_alias(alias, team):
+    if type(alias) is not str or len(alias) < 2: # Invalid input
+        return 0
     alias = alias.upper()
     """Adds an same into alias database
 

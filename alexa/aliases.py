@@ -20,7 +20,14 @@ def get_team(alias):
     return None
 
 print("Loading aliases...")
-with codecs.open('data/aliases.json', 'r+', encoding='utf-8') as f:
-    data = json.load(f)
-    print("Aliases loaded:")
-    print(data)
+
+aliases_file = 'data/aliases.json'
+try:
+    with codecs.open(aliases_file, 'r+', encoding='utf-8') as f:
+        data = json.load(f)
+        print("Aliases loaded:")
+        print(data)
+except FileNotFoundError:
+    print("Aliases file does not exist...creating it:")
+    with open(aliases_file, 'w') as f:
+        print("{}", file=f)

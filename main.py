@@ -9,6 +9,7 @@ app = Flask(__name__)
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 config = configparser.ConfigParser()
+api_key = config['DEFAULT']['APIkey']
 
 @ask.launch
 def launch():

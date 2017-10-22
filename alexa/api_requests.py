@@ -14,8 +14,6 @@ api_key = config['DEFAULT']['APIkey']
 # this script will
 base_url = 'https://api.crowdscores.com/v1/'
 
-
-#
 # returns match_id of latest match for given team
 def get_last_match_id(team_id: str):
     #TODO CHECK IF THEY ARE IN ORDER
@@ -39,15 +37,52 @@ def get_last_match_id(team_id: str):
 
     #TODO: consider the following:
     #       it = reversed(matches)
-    for i in range(len(matches) - 1, 0, -1):
-        if matches[i]['isResult']:
-            return matches[i]['dbid']
+    for i in range(len(matches), 0, -1):
+        if matches[i - 1]['isResult']:
+            return matches[i - 1]['dbid']
             #TODO: lol is this redundant?
             break
 
 # returns match_id of latest match between 2 teams
+#TODO: add pagination
 def get_last_match_id_2(team1_id: str, team2_id: str):
-    return '0'
+    """ Given two team_ids, returns their most recent completed match id
+    Returns -1 if no matches found in last year
+    """
+    toTime = datetime.utcnow()
+    oneYear = timedelta(days = 365)
+    fromTime = toTime - oneYear
+    # load params list
+    payload = {'api_key': api_key,
+               'team_id': team1_id,
+               'from': fromTime,
+               'to': toTime}
+    #TODO: remove when multileague is implemented
+    payload['competition_id'] = 2
+    # get matches involving team1
+    matches = request_matches(payload)
+    if len(matches) == 0:
+        return -1;
+
+    # TODO: not sure if we need this var
+    t2_id = int(team2_id)
+    # get only matches where teams are matched up
+    matchups = list(filter(
+        lambda x: x['awayTeam']['dbid'] == t2_id or
+                  x['homeTeam']['dbid'] == t2_id,
+                  matches))
+    if(len(matchups) == 0):
+        return -1
+
+    #return matchups
+    #TODO: consider it.reversed(matchups)
+
+    #for i in xrange(len(matchups), 0, -1):
+    for match in reversed(matches):
+        if match['isResult']:
+            return match['dbid']
+            #TODO: lol is this redundant?
+            break
 
 # returns match_id of next fixture for given team
 def get_next_fixture_id(team_id: str):
@@ -75,6 +110,45 @@ def get_next_fixture_id(team_id: str):
             #TODO: lol is this redundant?
             break
 
+def get_next_fixture_id_2(team1_id: str, team2_id: str):
+    """ Given two team_ids, returns their most recent completed match id
+    Returns -1 if no matches found in last year
+    """
+    fromTime = datetime.utcnow()
+    oneYear = timedelta(days = 365)
+    toTime = fromTime + oneYear
+    # load params list
+    payload = {'api_key': api_key,
+               'team_id': team1_id,
+               'from': fromTime,
+               'to': toTime}
+    #TODO: remove when multileague is implemented
+    payload['competition_id'] = 2
+    # get matches involving team1
+    matches = request_matches(payload)
+    if len(matches) == 0:
+        return -1;
+
+    # TODO: not sure if we need this var
+    t2_id = int(team2_id)
+    # get only matches where teams are matched up
+    matchups = list(filter(
+        lambda x: x['awayTeam']['dbid'] == t2_id or
+                  x['homeTeam']['dbid'] == t2_id,
+                  matches))
+    if(len(matchups) == 0):
+        return -1
+
+    #return matchups
+    #TODO: consider it.reversed(matchups)
+
+    #for i in xrange(len(matchups), 0, -1):
+    for match in matches:
+        if not match['isResult']:
+            return match['dbid']
+            #TODO: lol is this redundant?
+            break
+
 def get_ongoing_matches(team_id = None, competition_id = None):
     """ Return all ongoing matches
     Optional parameters team_id and competition_id let you specify a specific
@@ -92,14 +166,13 @@ def get_ongoing_matches(team_id = None, competition_id = None):
         payload['competition_id'] = competition_id
 
     matches = request_matches(payload)
-    query = []
-    # add all matches that have not ended to query
-    for match in matches:
-        if not match['isResult']:
-            query.append(match)
+    # return subset of matches that have not ended
+    #TODO: make list comprehension?
+    return list(filter(lambda x: not x['isResult'], matches))
+    #return [i for i in list if i['isResult']]
 
-    return query
-
+def get_league_table(competition_id: str, team_id = None):
+    return null
 
 #TODO: update all these to not store the response
 #TODO: send api_keys with headers

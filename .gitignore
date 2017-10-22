@@ -12,6 +12,7 @@ __pycache__/
 # Testing files
 testWill.py
 will.py
+data/temp.json
 
 # Config files
 *.ini

@@ -1,4 +1,4 @@
-import logging, configparser, datetime
+import logging, configparser, datetime, json
 from flask import render_template
 from flask_ask import Ask, request, session, question, statement
 
@@ -8,6 +8,14 @@ from .teams import *
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
+<<<<<<< HEAD
+config = configparser.ConfigParser()
+config.read('config.ini')
+api_key = config['DEFAULT']['APIkey']
+team_list_fp = open('data/team_list.json', 'r')
+team_ids = json.load(team_list_fp)
+=======
+>>>>>>> 021e1244f4d796e3526fe51aa5d2b4c9fe56163c
 
 @ask.launch
 def start_soccer_stat_intent():
@@ -16,16 +24,45 @@ def start_soccer_stat_intent():
 
 @ask.intent('LastMatchResultIntent')
 def last_match_result(team):
-    #TODO get actual data
     #TODO handle games determined by penalty kicks
+<<<<<<< HEAD
+    team_id=team_ids[team]
+    side = "away"
+    #match_id = get_last_match_id(str(team_id))
+    #guard clause for no match found
+    #if(match_id == -1):
+        #return render_template('no_match_found')
+
+    #match_details = request_match_details(match_id)
+    fp = open('alexa/matchtest.json', 'r')
+    match_details = json.load(fp)
+    if(team_id == match_details['homeTeam']['dbid']):
+        side = "home"
+    if(side == "home"):
+        opponent = match_details['awayTeam']['name']
+        team_score = match_details['homeGoals']
+        opp_score = match_details['awayGoals']
+    else:
+        opponent = match_details['homeTeam']['name']
+        team_score = match_details['homeGoals']
+        opp_score = match_details['awayGoals']
+
+
+    if side == match_details['outcome']['winner']:
+        speech_text = render_template('last_result_win', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    elif match_details['outcome']['winner'] == "draw":
+        speech_text = render_template('last_result_draw', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    else:
+        speech_text = render_template('last_result_loss', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+=======
     template = 'draw'
     if team_score > opp_score:
         template = 'win'
     elif opp_score > team_score:
         template = 'loss'
     speech_text = render_template('last_result_' + template, team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+>>>>>>> 021e1244f4d796e3526fe51aa5d2b4c9fe56163c
     return statement(speech_text)
-
 
 @ask.intent('CurrentMatchStatusIntent')
 def current_match_score(team):

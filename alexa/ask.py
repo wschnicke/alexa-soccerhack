@@ -1,4 +1,4 @@
-import logging, datetime
+import logging, configparser, datetime, json
 import alexa.api_requests
 import time
 from flask import render_template
@@ -10,6 +10,10 @@ from .teams import *
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
+config = configparser.ConfigParser()
+config.read('config.ini')
+api_key = config['DEFAULT']['APIkey']
+
 
 @ask.launch
 def start_soccer_stat_intent():
@@ -212,9 +216,8 @@ def untrack_team_intent(team):
     speech_text=render_template('untrack_team_' + result, team=team)
     return statement(speech_text).simple_card("Untrack Team", speech_text)
 
-<<<<<<< HEAD
-@ask.intent('GetTeamLeagueData')
-def get_team_league_data_intent(team)
+@ask.intent('GetTeamLeagueDataIntent')
+def get_team_league_data_intent(team):
     team_info = get_team(team)
     if(team_info == None):
         speech_text = render_template('error_finding_team')
@@ -222,16 +225,16 @@ def get_team_league_data_intent(team)
 
     team_id = team_info[0]
     #currently hardcoded to be the EPL
-    league_table = get_league_table('2')
+    league_table = alexa.api_requests.get_league_table('2')
     i = 0
-    team_found = false
+    team_found = False
     team_place = None
-    while(i < len(league_table) and team_found = false):
+    while(i < len(league_table) and team_found == False):
         if league_table[i]['dbid'] == team_id:
             team_place = i
-            team_found = true
+            team_found = True
         i = i + 1
-    if(team_found == false):
+    if(team_found == False):
         speech_text = render_template('team_not_in_league')
         return statement(speech_text)
     team_data = league_table[team_place]
@@ -242,10 +245,6 @@ def get_team_league_data_intent(team)
 
     speech_text = render_template('team_league_data', team=team,
         points=points, wins=wins, losses=losses, draws=draws, place=team_place)
-=======
-@ask.intent('LeagueTableIntent')
-def league_table_intent(league: str):
->>>>>>> a0c32f82c2c49e222b49280a8fcc8a1a786782ac
 
 
 @ask.session_ended

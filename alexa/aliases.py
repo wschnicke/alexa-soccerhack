@@ -60,7 +60,6 @@ def get_team_from_alias(alias):
     return None
 
 # Load aliases file
-print("Loading aliases...")
 aliases_file = 'data/aliases.json'
 try:
     with codecs.open(aliases_file, 'r+', encoding='utf-8') as f:

@@ -75,6 +75,30 @@ def get_next_fixture_id(team_id: str):
             #TODO: lol is this redundant?
             break
 
+def get_ongoing_matches(team_id = None, competition_id = None):
+    """ Return all ongoing matches
+    Optional parameters team_id and competition_id let you specify a specific
+    team or league
+    """
+    # get matches starting in last 6 hours
+    toTime = datetime.utcnow()
+    fromTime = toTime - timedelta(hours = 6)
+    payload = {'api_key': api_key,
+               'from': fromTime,
+               'to': toTime}
+    if team_id is not None:
+        payload['team_id'] = team_id
+    if competition_id is not None:
+        payload['competition_id'] = competition_id
+
+    matches = request_matches(payload)
+    query = []
+    # add all matches that have not ended to query
+    for match in matches:
+        if not match['isResult']:
+            query.append(match)
+
+    return query
 
 
 #TODO: update all these to not store the response

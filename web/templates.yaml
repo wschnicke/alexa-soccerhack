@@ -62,9 +62,8 @@ alias_replace: "Replaced alias {{alias}} for team {{team}}."
 alias_same: "{{alias}} already exists as an alias for team {{team}}."
 alias_fail: "Failed setting {{alias}} as an alias for {{team}}."
 
-next_match_time: "<speak>The next {{ team }} match is against {{ opponent }} and starts on
-  <say-as interpret-as=\"date\">{{ year }}{{ month }}{{ day }}</say-as>
-  at <say-as interpret-as=\"time\">{{ hour }}{{ minutes }}</say-as>.</speak>"
+next_match_time: "<speak>The next {{ team }} match is against {{ opponent }} on
+  <say-as interpret-as=\"date\">{{ year }}{{ month }}{{ day }}</say-as></speak>"
 no_match_found_last_year: "{{ team }} has no fixtures in the next year"
 
 last_result_win: "{{ team }} won the match against {{ opponent }}

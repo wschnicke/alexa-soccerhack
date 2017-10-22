@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 # get api_key
 #TODO: does this parse every time you enter
 config = configparser.ConfigParser()
-config.read(get_config_path())
+config.read('config.ini'')
 api_key = config['DEFAULT']['APIkey']
 
 # this script will

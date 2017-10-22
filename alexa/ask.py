@@ -86,14 +86,21 @@ def alias_team_intent(alias, team):
 # TODO: Make these work with aliases!
 @ask.intent('TrackTeamIntent')
 def track_team_intent(team):
-    get_team = get_team(team)
+    get = get_team(team)
     result = 'error'
-    if (track_id != None):
-        team = get_team[1] # replace with proper name
-        track = track_team(get_team[0]) # track with ID
-        if (track != None):
+    if (get != None):
+        team = get[1] # replace with proper name
+        track = track_team(get[0]) # track with ID
+        if (track == 1):
             result = 'success'
-    speech_text=render_template('track_error', team=team)
+            print("Now tracking: " + team)
+            print(tracked_teams)
+        else:
+            result = 'already'
+            print("Already tracking: " + team)
+    if (result == 'error'):
+        print("Failed to track: " + team)
+    speech_text=render_template('track_team_' + result, team=team)
     return statement(speech_text).simple_card("Track Team", speech_text)
 
 @ask.intent('UntrackTeamIntent')

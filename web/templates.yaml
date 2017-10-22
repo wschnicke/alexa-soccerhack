@@ -23,5 +23,5 @@ last_result_draw: "{{ team }} drew the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
 
 track_team_success: "Successfully tracking {{team}}"
-
+track_team_already: "Already tracking {{team}}"
 track_team_fail: "Failed to track {{team}}"

@@ -6,8 +6,11 @@ tracked_teams = []
 def track_team(team_id: int):
     """Add team to tracking list given id
     """
+    # TODO: Add highlights re-check here... or maybe in ask.pyss
     if (team_id not in tracked_teams):
+        from .highlights import update_highlights # deferred import to avoid circular dependencies
         tracked_teams.append(team_id)
+        update_highlights([team_id])
         return 1
     return 0
 

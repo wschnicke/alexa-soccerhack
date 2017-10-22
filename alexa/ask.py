@@ -11,7 +11,7 @@ logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 
 @ask.launch
 def start_soccer_stat_intent():
-    welcome_msg = "this is a test message"
+    welcome_msg = "Welcome to Soccer Stats!"
     return question(welcome_msg)
 
 @ask.intent('LastMatchResultIntent')
@@ -30,18 +30,22 @@ def last_match_result(team):
 @ask.intent('CurrentMatchStatusIntent')
 def current_match_score(team):
     #TODO: call api to get match score data, set score
-    one_score="1"
-    two_score="123"
+    team_score=1
+    opp_score=123
     opp="bad guys"
     minute ="20"
-    speech_text = render_template('current_status', team=team, team_score=one_score, opponent=opp, opp_score=two_score, minute = minute)
+    if (opp_score - team_score) > 4:
+            speech_text = render_template('you_are_dead')
+    else:
+        speech_text = render_template('current_status', team=team, team_score=team_score, opponent=opp, opp_score=opp_score, minute = minute)
     return statement(speech_text)
 
 @ask.intent('NextMatchTimeIntent')
 def match_time(team):
     #TODO actually get the right data
-    timestamp = "1234000000"
-    start_time = datetime.fromtimestap(timestamp)
+    timestamp = 1508629166
+    start_time = datetime.datetime.fromtimestamp(timestamp)
+    opponent="bad guys"
 
     speech_text = render_template('next_match_time', team=team,
         opponent=opponent, day = start_time.day, month = start_time.month,
@@ -65,7 +69,7 @@ def help_intent():
 def alias_team_intent(alias, team):
     """Add alias to alias database, called by Alexa
 
-    Keyword arguments:
+    Keyword arguments:liverpool next match
     alias, team
     """
     add = add_alias(alias, team)
@@ -83,7 +87,7 @@ def alias_team_intent(alias, team):
 @ask.intent('TrackTeamIntent')
 def track_team_intent(team):
     get = get_team(team)
-    result = 'error'
+    result = 'fail'
     if (get != None):
         team = get[1] # replace with proper name
         track = track_team(get[0]) # track with ID
@@ -94,15 +98,29 @@ def track_team_intent(team):
         else:
             result = 'already'
             print("Already tracking: " + team)
-    if (result == 'error'):
+    if (result == 'fail'):
         print("Failed to track: " + team)
     speech_text=render_template('track_team_' + result, team=team)
     return statement(speech_text).simple_card("Track Team", speech_text)
 
 @ask.intent('UntrackTeamIntent')
 def untrack_team_intent(team):
-    team_id = get_team_id(team)
-
+    get = get_team(team)
+    result = 'fail'
+    if (get != None):
+        team = get[1] # replace with proper name
+        untrack = untrack_team(get[0]) # track with ID
+        if (untrack == 1):
+            result = 'success'
+            print("Now untracked: " + team)
+            print(tracked_teams)
+        else:
+            result = 'already'
+            print("Already not tracked: " + team)
+    if (result == 'fail'):
+        print("Failed to untrack: " + team)
+    speech_text=render_template('untrack_team_' + result, team=team)
+    return statement(speech_text).simple_card("Untrack Team", speech_text)
 
 @ask.session_ended
 def session_ended():

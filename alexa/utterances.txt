@@ -19,9 +19,15 @@ LastMatchResultIntent last match for {team}
 LastMatchResultIntent last match {team}
 
 AliasIntent let {alias} be an alias for {team}
-AliasIntent {alias} means {team}
+AliasIntent let {alias} mean {team}
 AliasIntent alias {alias} with {team}
 AliasIntent alias {alias} to {team}
+AliasIntent alias {alias} for {team}
+AliasIntent alias {alias} means {team}
 
 TrackTeamIntent track {team}
+TrackTeamIntent follow {team}
 TrackTeamIntent watch {team}
+UntrackTeamIntent untrack {team}
+UntrackTeamIntent follow {team}
+UntrackTeamIntent unwatch {team}

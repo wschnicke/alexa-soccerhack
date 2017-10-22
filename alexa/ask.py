@@ -29,7 +29,8 @@ def last_match_result(team):
     match_id = alexa.api_requests.get_last_match_id(str(team_id))
     #guard clause for no match found
     if(match_id == -1):
-        return render_template('no_match_found')
+        speech_text = render_template('no_match_found')
+        return statement(speech_text)
 
     match_details = alexa.api_requests.request_match_details(str(match_id))
     if(team_id == match_details['homeTeam']['dbid']):
@@ -43,7 +44,7 @@ def last_match_result(team):
         team_score = match_details['homeGoals']
         opp_score = match_details['awayGoals']
 
-
+    #determine winner
     if side == match_details['outcome']['winner']:
         template='win'
     elif match_details['outcome']['winner'] == "draw":

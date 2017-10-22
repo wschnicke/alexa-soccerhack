@@ -28,3 +28,7 @@ AliasIntent alias {alias} means {team}
 
 TrackTeamIntent track {team}
 TrackTeamIntent watch {team}
+UntrackTeamIntent untrack {team}
+UntrackTeamIntent don't track {team}
+UntrackTeamIntent unwatch {team}
+UntrackTeamIntent don't watch {team}

@@ -1,9 +1,9 @@
-/* message function:
-  team A, team B, team A score, team B score, game time, message
+/* display message in list
 */
-function message(teamA, teamB, teamAScore, teamBScore, gameTime, msg) {
+function message(homeTeam, awayTeam, gameTime, message, homeTeamScore=-1, awayTeamScore=-1) {
   var now = new Date();
-  var message = `<span class='message'>[${now.getHours()}:${now.getMinutes()}] [<b>${teamA}</b> (${teamAScore}) - <b>${teamB}</b> (${teamBScore})] ${gameTime ? gameTime + ' - ' : ''}${msg}</span>`;
+  var teamInfo = (homeTeamScore == -1 || awayTeamScore == -1) ? `<b>${homeTeam}</b> - <b>${awayTeam}</b>` : `<b>${homeTeam}</b> (${homeTeamScore}) - <b>${awayTeam}</b> (${awayTeamScore})`;
+  var message = `<span class='message'>[${now.getHours()}:${now.getMinutes()}] [${teamInfo}] ${gameTime ? gameTime + ' - ' : ''}${message}</span>`;
   $("#updates").append(message);
   return message;
 }
@@ -11,9 +11,9 @@ function message(teamA, teamB, teamAScore, teamBScore, gameTime, msg) {
 /* socket handlers */
 let socket = io();
 socket.on("message", function(data) {
-  message(data.teamA, data.teamB, data.teamAScore, data.teamBScore, data.gameTime, data.msg);
+  message(data.homeTeam, data.awayTeam, data.gameTime, data.message, data.homeTeamScore, data.awayTeamScore);
 });
 
 /* fake data */
-message("Columbus Crew", "Miami FC", 0, 0, "", "Game started!");
-message("Columbus Crew", "Miami FC", 1, 0, "12'", "Keeper Zack Steffen scores a goal for Columbus Crew!");
+message("Columbus Crew", "Miami FC", "", "Game started!", 0, 0);
+message("Columbus Crew", "Miami FC", "12'", "Keeper Zack Steffen scores a goal for Columbus Crew!", 1, 0);

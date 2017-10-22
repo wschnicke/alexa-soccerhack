@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, emit
 
 socketio = SocketIO(app)
 
-def message(teamA, teamB, teamAScore, teamBScore, gameTime, msg):
+def message(home_team, away_team, game_time, message, home_team_score=-1, away_team_score=-1):
     """
     Send a message to client via sockets
     !!Arguments may change soon!!
@@ -11,13 +11,13 @@ def message(teamA, teamB, teamAScore, teamBScore, gameTime, msg):
     Keyword arguments:
     teamA, teamB, teamAScore, teamBScore, gameTime, msg
     """
-    socketio.emit("message", {'teamA': teamA, 'teamB': teamB, 'teamAScore': teamAScore, 'teamBScore': teamBScore, 'gameTime': gameTime, 'msg': msg})
+    socketio.emit("message", {'homeTeam': home_team, 'awayTeam': away_team, 'gameTime': game_time, 'message': message, 'homeTeamScore': home_team_score, 'awayTeamScore': away_team_score})
 
 def fakemsg():
     """
     Send some fake messages via sockets to client
     """
-    message("FC Barcalona", "FC Cincinnati", 0, 0, "0'", "Lionel Messi scored!")
-    message("FC Barcalona", "FC Cincinnati", 1, 0, "1'", "Lionel Messi scored!")
-    message("FC Barcalona", "FC Cincinnati", 2, 0, "3'", "Lionel Messi scored!")
-    print("fake messages sent")
+    message("FC Barcalona", "FC Cincinnati", "0'", "Lionel Messi scored!",  0, 0)
+    message("FC Barcalona", "FC Cincinnati", "1'", "Lionel Messi scored!",  1, 0)
+    message("FC Barcalona", "FC Cincinnati", "3'", "Lionel Messi scored!", 2, 0)
+    print("Fake messages sent to client")

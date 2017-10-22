@@ -43,8 +43,9 @@ def current_match_score(team):
 @ask.intent('NextMatchTimeIntent')
 def match_time(team):
     #TODO actually get the right data
-    timestamp = "1234000000"
-    start_time = datetime.fromtimestap(timestamp)
+    timestamp = 1508629166
+    start_time = datetime.datetime.fromtimestamp(timestamp)
+    opponent="bad guys"
 
     speech_text = render_template('next_match_time', team=team,
         opponent=opponent, day = start_time.day, month = start_time.month,

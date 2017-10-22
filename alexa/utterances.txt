@@ -6,7 +6,7 @@ CurrentMatchStatusIntent {team} match score
 CurrentMatchStatusIntent {team} score
 
 NextMatchTimeIntent {team} next match
-NextMatchTimeIntent when is {team}'s next match
+NextMatchTimeIntent when is {team}s next match
 NextMatchTimeIntent when is the next {team} match
 NextMatchTimeIntent next match for {team}
 NextMatchTimeIntent next match {team}
@@ -16,7 +16,7 @@ LastMatchResultIntent {team} last match result
 LastMatchResultIntent did {team} win
 LastMatchResultIntent did {team} lose
 LastMatchResultIntent last match for {team}
-LastMatchResultIntent last match {team} 
+LastMatchResultIntent last match {team}
 
 AliasIntent let {alias} be an alias for {team}
 AliasIntent {alias} means {team}

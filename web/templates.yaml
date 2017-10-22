@@ -90,3 +90,8 @@ untrack_team_fail: "Failed to untrack {{team}}"
 highlights_outcome: "<speak>{{home_team}} - {{away_team}} match is now over! Final score: {{home_team}} {{home_team_score}} - {{away_team}} {{away_team_score}}<break time=\"3s\"/></speak>"
 highlights_goal: "<speak>{{goal}} by {{player}} for {{scoring_team}} in {{home_team}} - {{away_team}} match at {{match_time}} minutes.
 Score: {{home_team}} ({{home_team_score}}) - {{away_team}} ({{away_team_score}})<break time=\"3s\"/></speak>"
+
+error_finding_team: "I'm sorry, I'm not sure what team you're talking about"
+team_not_in_league: "I'm sorry, {{ team }} is not in this league"
+team_league_data: "{{ team }} is in position {{ place }} with {{ points }}
+  points. They have won {{ wins }} , lost {{ losses }} , and drawn {{ draws }}"

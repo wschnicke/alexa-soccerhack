@@ -1,6 +1,5 @@
 import requests, configparser, os
 import json
-from utils.utilities import get_config_path
 from datetime import datetime, timedelta
 
 
@@ -164,7 +163,6 @@ def get_next_fixture_id_2(team1_id: str, team2_id: str):
     #return -1 if no match found
     return -1
 
-#TODO: test once match is live
 def get_ongoing_matches(team_id = None, competition_id = None):
     """ Return all ongoing matches; returns empty list if no ongoing matches
     Optional parameters team_id and competition_id let you specify a specific

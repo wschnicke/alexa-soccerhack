@@ -24,9 +24,12 @@ def start_soccer_stat_intent():
 @ask.intent('LastMatchResultIntent')
 def last_match_result(team):
     team_info = get_team(team)
-    # !!!TODO: Add check. if get_team is None, this should fail. otherwise it errors in the next line!!!
-    team_id = team_info[0]
+    #guard clause for no team found
+    if(team_info == None):
+        speech_text = render_template('error_finding_team')
+        return statement(speech_text)
 
+    team_id = team_info[0]
     match_id = alexa.api_requests.get_last_match_id(str(team_id))
     #guard clause for no match found
     if(match_id == -1):
@@ -68,6 +71,9 @@ def last_match_result(team):
 @ask.intent('CurrentMatchStatusIntent')
 def current_match_score(team):
     team_info = get_team(team)
+    if(team_info == None):
+        speech_text = render_template('error_finding_team')
+        return statement(speech_text)
     team_id = team_info[0]
     match = alexa.api_requests.get_ongoing_matches(str(team_id))
     #guard clause for no match found
@@ -119,6 +125,9 @@ def current_match_score(team):
 @ask.intent('NextMatchTimeIntent')
 def match_time(team):
     team_info = get_team(team)
+    if(team_info == None):
+        speech_text = render_template('error_finding_team')
+        return statement(speech_text)
     team_id = team_info[0]
     match_id = alexa.api_requests.get_next_fixture_id(str(team_id))
     #guard clause for no match found
@@ -212,6 +221,36 @@ def untrack_team_intent(team):
 def highlights_intent(): # TODO: Add highlights for specific team search
     speech_text = report_updates()
     return statement(speech_text).simple_card("Updates", speech_text)
+
+@ask.intent('GetTeamLeagueDataIntent')
+def get_team_league_data_intent(team):
+    team_info = get_team(team)
+    if(team_info == None):
+        speech_text = render_template('error_finding_team')
+        return statement(speech_text)
+
+    team_id = team_info[0]
+    #currently hardcoded to be the EPL
+    league_table = alexa.api_requests.get_league_table('2')
+    i = 0
+    team_found = False
+    team_place = None
+    while(i < len(league_table) and team_found == False):
+        if league_table[i]['dbid'] == team_id:
+            team_place = i
+            team_found = True
+        i = i + 1
+    if(team_found == False):
+        speech_text = render_template('team_not_in_league')
+        return statement(speech_text)
+    team_data = league_table[team_place]
+    points = team_data['points']
+    wins = team_data['wins']
+    losses = team_data['losses']
+    draws = team_data['draws']
+
+    speech_text = render_template('team_league_data', team=team,
+        points=points, wins=wins, losses=losses, draws=draws, place=team_place)
 
 @ask.session_ended
 def session_ended():

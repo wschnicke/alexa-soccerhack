@@ -18,12 +18,12 @@ def start_soccer_stat_intent():
 def last_match_result(team):
     #TODO get actual data
     #TODO handle games determined by penalty kicks
+    template = 'draw'
     if team_score > opp_score:
-        speech_text = render_template('last_result_win', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+        template = 'win'
     elif opp_score > team_score:
-        speech_text = render_template('last_result_loss', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
-    else:
-        speech_text = render_template('last_result_draw', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+        template = 'loss'
+    speech_text = render_template('last_result_' + template, team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
     return statement(speech_text)
 
 
@@ -35,7 +35,7 @@ def current_match_score(team):
     opp="bad guys"
     minute ="20"
     if (opp_score - team_score) > 4:
-            speech_text = render_template('you_are_dead')
+        speech_text = render_template('you_are_dead')
     else:
         speech_text = render_template('current_status', team=team, team_score=team_score, opponent=opp, opp_score=opp_score, minute = minute)
     return statement(speech_text)
@@ -69,7 +69,7 @@ def help_intent():
 def alias_team_intent(alias, team):
     """Add alias to alias database, called by Alexa
 
-    Keyword arguments:liverpool next match
+    Keyword arguments:
     alias, team
     """
     add = add_alias(alias, team)

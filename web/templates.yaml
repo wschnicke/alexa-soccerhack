@@ -88,3 +88,7 @@ untrack_team_already: "{{team}} is already untracked"
 untrack_team_fail: "Failed to untrack {{team}}"
 
 error_finding_team: "I'm sorry, I'm not sure what team you're talking about"
+
+team_not_in_league: "I'm sorry, {{ team }} is not in this league"
+team_league_data: "{{ team }} is in position {{ place }} with {{ points }}
+  points. They have won {{ wins }} , lost {{ losses }} , and drawn {{ draws }}"

@@ -41,5 +41,12 @@
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
+    },{
+        "intent": "GetTeamLeagueDataIntent",
+        "slots": [{
+            "name": "team",
+            "type": "LIST_OF_TEAMS"
+          }]
+
     }]
 }

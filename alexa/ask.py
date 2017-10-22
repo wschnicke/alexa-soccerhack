@@ -216,6 +216,37 @@ def untrack_team_intent(team):
     speech_text=render_template('untrack_team_' + result, team=team)
     return statement(speech_text).simple_card("Untrack Team", speech_text)
 
+@ask.intent('GetTeamLeagueData')
+def get_team_league_data_intent(team)
+    team_info = get_team(team)
+    if(team_info == None):
+        speech_text = render_template('error_finding_team')
+        return statement(speech_text)
+
+    team_id = team_info[0]
+    #currently hardcoded to be the EPL
+    league_table = get_league_table('2')
+    i = 0
+    team_found = false
+    team_place = None
+    while(i < len(league_table) and team_found = false):
+        if league_table[i]['dbid'] == team_id:
+            team_place = i
+            team_found = true
+        i = i + 1
+    if(team_found == false):
+        speech_text = render_template('team_not_in_league')
+        return statement(speech_text)
+    team_data = league_table[team_place]
+    points = team_data['points']
+    wins = team_data['wins']
+    losses = team_data['losses']
+    draws = team_data['draws']
+
+    speech_text = render_template('team_league_data', team=team,
+        points=points, wins=wins, losses=losses, draws=draws, place=team_place)
+
+
 @ask.session_ended
 def session_ended():
     return "{}", 200

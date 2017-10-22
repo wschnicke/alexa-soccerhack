@@ -8,9 +8,6 @@ from .teams import *
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
-config = configparser.ConfigParser()
-config.read('config.ini')
-api_key = config['DEFAULT']['APIkey']
 
 @ask.launch
 def start_soccer_stat_intent():

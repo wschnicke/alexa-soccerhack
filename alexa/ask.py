@@ -23,6 +23,7 @@ def start_soccer_stat_intent():
 @ask.intent('LastMatchResultIntent')
 def last_match_result(team):
     team_info = get_team(team)
+    # !!!TODO: Add check. if get_team is None, this should fail. otherwise it errors in the next line!!!
     team_id = team_info[0]
 
     match_id = alexa.api_requests.get_last_match_id(str(team_id))

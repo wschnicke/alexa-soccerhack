@@ -6,7 +6,11 @@ CurrentMatchStatusIntent {team} match score
 CurrentMatchStatusIntent {team} score
 
 NextMatchTimeIntent {team} next match
+<<<<<<< HEAD
+NextMatchTimeIntent when is {team}s next match
+=======
 NextMatchTimeIntent when is {team} next match
+>>>>>>> c139191551c42612a2ceea3bf2d4860f78799be9
 NextMatchTimeIntent when is the next {team} match
 NextMatchTimeIntent next match for {team}
 NextMatchTimeIntent next match {team}

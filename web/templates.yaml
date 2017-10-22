@@ -9,9 +9,9 @@ alias_same: "{{alias}} already exists as an alias for team {{team}}."
 
 alias_fail: "Failed setting {{alias}} as an alias for {{team}}."
 
-next_match_time: "The next {{ team }} match is against {{ opponent }} and starts on
-  <say-as interpret-as=\"date\" format=\"mdy\">{{ month }}{{ day }}{{ year }}<say-as/>
-  at <say-as interpret-as=\"time\">{{ hour }'{{ minutes }}<say-as/>}."
+next_match_time: "<speak>The next {{ team }} match is against {{ opponent }} and starts on
+  <say-as interpret-as=\"date\">{{ year }}{{ month }}{{ day }}</say-as>
+  at <say-as interpret-as=\"time\">{{ hour }}{{ minutes }}</say-as>.</speak>"
 
 last_result_win: "{{ team }} won the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"

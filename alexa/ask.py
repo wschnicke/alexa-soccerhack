@@ -1,4 +1,4 @@
-import logging, configparser, datetime, json
+import logging, datetime
 import alexa.api_requests
 import time
 from flask import render_template
@@ -10,10 +10,6 @@ from .teams import *
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
-config = configparser.ConfigParser()
-config.read('config.ini')
-api_key = config['DEFAULT']['APIkey']
-
 
 @ask.launch
 def start_soccer_stat_intent():
@@ -206,6 +202,10 @@ def untrack_team_intent(team):
         print("Failed to untrack: " + team)
     speech_text=render_template('untrack_team_' + result, team=team)
     return statement(speech_text).simple_card("Untrack Team", speech_text)
+
+@ask.intent('LeagueTableIntent')
+def league_table_intent(league: str):
+
 
 @ask.session_ended
 def session_ended():

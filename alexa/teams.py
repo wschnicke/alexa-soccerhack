@@ -27,6 +27,7 @@ def team_tracked(team_id: int):
     """
     return team_id in tracked_teams
 
+#TODO: do we need all three of these?
 def get_team_name(team_id: int):
     """Given team id, return its proper name (str) or None if not found
     """
@@ -58,6 +59,7 @@ def get_team(team_name: str): # Combination of get_team_name and get_team_id
     """
     from .aliases import get_team_from_alias # deferred import to avoid circular dependencies
     team_id = None
+    #TODO: remove found
     found = 0
     if (team_name != None):
         for k, v in teams.items():

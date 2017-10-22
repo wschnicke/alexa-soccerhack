@@ -41,5 +41,11 @@
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
-    }]
+    }, {
+        "intent": "LeagueTableIntent",
+        "slots": [{
+            "name": "league",
+            "type": "LIST_OF_LEAGUES"
+          }]
+      }]
 }

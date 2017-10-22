@@ -6,13 +6,15 @@ from datetime import datetime, timedelta
 #TODO: figure out where we should actually get this
 # get api_key
 config = configparser.ConfigParser()
-config.read('../config.ini')
+config.read(os.path.abspath('config.ini'))
 api_key = config['DEFAULT']['APIkey']
 
 # this script will
 base_url = 'https://api.crowdscores.com/v1/'
 
-# returns json object of latest match details for given team
+
+
+# returns match_id of latest match for given team
 def get_last_match_id(team_id: str):
     """ Given a team_id, returns the most recent completed match id for team
     Returns -1 if no matches found in last year
@@ -38,6 +40,31 @@ def get_last_match_id(team_id: str):
             #TODO: lol is this redundant?
             break
 
+# returns match_id of next fixture for given team
+def get_next_fixture_id(team_id: str):
+    """ Given a team_id, returns the next upcoming match id for team
+    Returns -1 if no matches found in next year
+    """
+    fromTime = datetime.utcnow()
+    oneYear = timedelta(days = 365)
+    toTime = fromTime + oneYear
+    # load params list
+    payload = {'api_key': api_key,
+               'team_id': team_id,
+               'from': fromTime,
+               'to': toTime}
+    #TODO: remove when multileague is implemented
+    payload['competition_id'] = 2
+    # get matches
+    matches = request_matches(payload)
+    if len(matches) == 0:
+        return -1;
+
+    for match in matches:
+        if not match['isResult']:
+            return match['dbid']
+            #TODO: lol is this redundant?
+            break
 
 def get_last_match(team1_id: str, team2_id: str):
     return '0'

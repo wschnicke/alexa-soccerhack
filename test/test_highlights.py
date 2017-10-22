@@ -2,7 +2,7 @@ import unittest
 from alexa.highlights import *
 from alexa.teams import *
 
-class TestAliases(unittest.TestCase):
+class TestHighlights(unittest.TestCase):
 
     def test_update_tracked_matches_from_none_tracked(self):
         self.assertEqual(update_tracked_matches([]), [])

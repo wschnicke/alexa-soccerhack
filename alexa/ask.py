@@ -7,6 +7,7 @@ from flask_ask import Ask, request, session, question, statement
 from web.flask import app
 from .aliases import *
 from .teams import *
+from .highlights import report_updates
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
@@ -206,6 +207,11 @@ def untrack_team_intent(team):
         print("Failed to untrack: " + team)
     speech_text=render_template('untrack_team_' + result, team=team)
     return statement(speech_text).simple_card("Untrack Team", speech_text)
+
+@ask.intent('HighlightsIntent')
+def highlights_intent(): # TODO: Add highlights for specific team search
+    speech_text = report_updates()
+    return statement(speech_text).simple_card("Updates", speech_text)
 
 @ask.session_ended
 def session_ended():

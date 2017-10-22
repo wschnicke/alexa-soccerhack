@@ -172,7 +172,30 @@ def get_ongoing_matches(team_id = None, competition_id = None):
     #return [i for i in list if i['isResult']]
 
 def get_league_table(competition_id: str, team_id = None):
-    return null
+    """ Return list of league table entries for given competition_id
+    If Optional param team_id is specified, it will return just the table for
+    that/those teams
+    This return is the leagueTable list entity in the api
+    """
+    payload = {'api_key': api_key,
+               'competition_id': '2'}
+    if team_id is not None:
+        payload['team_id'] = team_id
+
+    tables = request_league_tables(payload)
+    # ¯\_(ツ)_/¯
+    return tables[0]['leagueTable']
+
+def get_team_ids_relegation(competition_id: str):
+    """ Returns list of team_ids of teams in relegation zone
+    """
+    table = get_league_table(competition_id)
+    rel = list(filter( lambda x: x['leagueTableClass'] == 'bottom1', table))
+    #TODO: improve; maybe lambda or comprehension
+    result = []
+    for t in rel:
+        result.append(t['dbid'])
+    return result
 
 #TODO: update all these to not store the response
 #TODO: send api_keys with headers

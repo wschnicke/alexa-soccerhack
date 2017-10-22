@@ -8,16 +8,17 @@ from datetime import datetime, timedelta
 # get api_key
 #TODO: does this parse every time you enter
 config = configparser.ConfigParser()
-config.read('config.ini'')
+config.read('config.ini')
 api_key = config['DEFAULT']['APIkey']
 
 # this script will
 base_url = 'https://api.crowdscores.com/v1/'
 
 
-
+#
 # returns match_id of latest match for given team
 def get_last_match_id(team_id: str):
+    #TODO CHECK IF THEY ARE IN ORDER
     """ Given a team_id, returns the most recent completed match id for team
     Returns -1 if no matches found in last year
     """

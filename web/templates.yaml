@@ -16,6 +16,7 @@ last_result_loss: "{{ team }} lost the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
 last_result_draw: "{{ team }} drew the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
+no_match_found: "{{ team }} has not played any matches in the last year."
 
 track_team_success: "Successfully tracking {{team}}"
 track_team_already: "{{team}} is already tracked"

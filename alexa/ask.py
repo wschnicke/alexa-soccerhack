@@ -223,7 +223,7 @@ def highlights_intent(): # TODO: Add highlights for specific team search
     updates = report_updates()
     speech_text = ""
     if len(updates) == 0:
-        speech_text = "no_highlights"
+        speech_text = render_template("no_highlights")
     else:
         for update in updates:
             print(update)

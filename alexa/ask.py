@@ -23,12 +23,12 @@ def start_soccer_stat_intent():
 @ask.intent('LastMatchResultIntent')
 def last_match_result(team):
     team_info = get_team(team)
-    # !!!TODO: Add check. if get_team is None, this should fail. otherwise it errors in the next line!!!
+    #guard clause for no team found
     if(team_info == None):
         speech_text = render_template('error_finding_team')
         return statement(speech_text)
-    team_id = team_info[0]
 
+    team_id = team_info[0]
     match_id = alexa.api_requests.get_last_match_id(str(team_id))
     #guard clause for no match found
     if(match_id == -1):

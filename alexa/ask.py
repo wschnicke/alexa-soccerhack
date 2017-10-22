@@ -12,8 +12,6 @@ logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 config = configparser.ConfigParser()
 config.read('config.ini')
 api_key = config['DEFAULT']['APIkey']
-team_list_fp = open('data/team_list.json', 'r')
-team_ids = json.load(team_list_fp)
 
 
 @ask.launch
@@ -24,22 +22,23 @@ def start_soccer_stat_intent():
 @ask.intent('LastMatchResultIntent')
 def last_match_result(team):
     #TODO handle games determined by penalty kicks
-    team_id=team_ids[team]
+    team_info = get_team(team)
+    team_id = team_info[0]
     side = "away"
     match_id = alexa.api_requests.get_last_match_id(str(team_id))
     #guard clause for no match found
     if(match_id == -1):
-        speech_text = render_template('no_match_found_last_year')
+        speech_text = render_template('no_match_found_last_year', team=team_info[1])
         return statement(speech_text)
 
     match_details = alexa.api_requests.request_match_details(str(match_id))
     if(team_id == match_details['homeTeam']['dbid']):
-        side = "home"
-    if(side == "home"):
+        team_name = match_details['homeTeam']['name']
         opponent = match_details['awayTeam']['name']
         team_score = match_details['homeGoals']
         opp_score = match_details['awayGoals']
     else:
+        team_name = match_details['awayTeam']['name']
         opponent = match_details['homeTeam']['name']
         team_score = match_details['homeGoals']
         opp_score = match_details['awayGoals']
@@ -57,10 +56,7 @@ def last_match_result(team):
     if match_details['outcome']['type'] == "penalties":
         pks = "_pks"
 
-
-
-
-    speech_text = render_template('last_result_' + template + pks, team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    speech_text = render_template('last_result_' + template + pks, team=team_name, team_score=team_score, opponent=opponent, opp_score=opp_score)
     return statement(speech_text)
 
 @ask.intent('CurrentMatchStatusIntent')
@@ -76,12 +72,27 @@ def current_match_score(team):
 
 @ask.intent('NextMatchTimeIntent')
 def match_time(team):
-    #TODO actually get the right data
-    timestamp = 1508629166
-    start_time = datetime.datetime.fromtimestamp(timestamp)
-    opponent="bad guys"
+    team_info = get_team(team)
+    team_id = team_info[0]
+    match_id = alexa.api_requests.get_next_fixture_id(str(team_id))
+    #guard clause for no match found
+    if(match_id == -1):
+        speech_text = render_template('no_match_found_next_year', team = team_info[1])
+        return statement(speech_text)
 
-    speech_text = render_template('next_match_time', team=team,
+    match_details = alexa.api_requests.request_match_details(str(match_id))
+    timestamp = match_details['start']
+    timestamp = timestamp / 1000
+
+    start_time = datetime.datetime.fromtimestamp(timestamp)
+    if(team_id == match_details['homeTeam']['dbid']):
+        team_name = match_details['homeTeam']['name']
+        opponent = match_details['awayTeam']['name']
+    else:
+        team_name = match_details['awayTeam']['name']
+        opponent = match_details['homeTeam']['name']
+
+    speech_text = render_template('next_match_time', team=team_name,
         opponent=opponent, day = start_time.day, month = start_time.month,
         year = start_time.year, hour = start_time.hour,
         minutes = start_time.minute)

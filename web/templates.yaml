@@ -9,15 +9,16 @@ alias_fail: "Failed setting {{alias}} as an alias for {{team}}."
 next_match_time: "<speak>The next {{ team }} match is against {{ opponent }} and starts on
   <say-as interpret-as=\"date\">{{ year }}{{ month }}{{ day }}</say-as>
   at <say-as interpret-as=\"time\">{{ hour }}{{ minutes }}</say-as>.</speak>"
+no_match_found_last_year: "{{ team }} has no fixtures in the next year"
 
 last_result_win: "{{ team }} won the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
 last_result_loss: "{{ team }} lost the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
 last_result_win_pks: "{{ team }} won the match against {{ opponent }}
-  in penalties.
+  in penalties."
 last_result_loss_pks: "{{ team }} lost the match against {{ opponent }}
-  in penalties.
+  in penalties."
 last_result_draw: "{{ team }} drew the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
 no_match_found_last_year: "{{ team }} has not played any matches in the last year."

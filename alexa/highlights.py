@@ -17,6 +17,8 @@ last_tracked_updates = int(time.time() - 5 * 86400) * 1000 # last_tracked_update
 
 # TODO: Figure out how to deal with untracking teams... kinda hacky logic right now
 
+# Step 1. Identify matches to track
+
 def update_tracked_matches(new_teams = [], teams = tracked_teams, from_time = last_tracked_matches):
     """populate matches list from tracked teams from last_tracked_matches to current time
     if new_team = 1, will do the last (5) day instead of from the last update
@@ -47,6 +49,8 @@ def update_tracked_matches(new_teams = [], teams = tracked_teams, from_time = la
     #print ("Tracked matches update: " + str(tracked_matches))
     return tracked_matches_found # return relevant matches
 
+# Step 2: Get updates from matches obtained in 1
+
 def get_tracked_updates(new_matches = [], matches = tracked_matches):
     """get all tracked updates from tracked matches list and put into updates list to be traversed later (tracked_updates)
     if new_team = 1, will do the last 5 days instead of from the last update
@@ -70,12 +74,15 @@ def get_tracked_updates(new_matches = [], matches = tracked_matches):
                     "homeGoals" : json["homeGoals"],
                     "awayGoals": json["awayGoals"],
                     "homeTeam": json["homeTeam"],
-                    "awayTeam": json["awayTeam"]
+                    "awayTeam": json["awayTeam"],
+                    "start": json["start"]
                 })
             tracked_matches.remove(match_id) # remove match from tracking list since it's over
             finished_matches.append(match_id)
     last_tracked_updates = int(time.time()) * 1000
     return tracked_updates
+
+# Do steps 1 and 2, reporting length of updates
 
 def update_highlights(new_teams = []):
     """get latested updates in object format and return the new count
@@ -84,6 +91,8 @@ def update_highlights(new_teams = []):
     updates_to_report = get_tracked_updates(new_matches) # get updates
     return len(updates_to_report) # returns new size of updates
 
+# Do steps 1, 2 and report updates, parsing each one
+
 def report_updates():
     """obtain latest updates and return them
     """
@@ -91,11 +100,14 @@ def report_updates():
     update_highlights()
     updates = []
     if (len(tracked_updates) > 0):
+        #tracked_updates = sorted(tracked_updates, cmp=make_comparator(event_importance))
         updates = list(tracked_updates)
         for event in updates:
             parse_event(event)
         tracked_updates = []
     return updates
+
+# Parse and process events
 
 def parse_event(event):
     #now = datetime.today().strftime('%H:%M:%S') #not needed right now
@@ -115,10 +127,13 @@ def parse_event(event):
                 return 1
             elif (event['type'] == 'penalty'):
                 # TODO
+                print('PENALTY: TBD')
             elif (event['type'] == 'card'):
                 # TODO
+                print('CARD: TBD')
             else:
                 # TODO
+                print('OTHER: TBD')
         elif ('outcome' in event):
             # TODO
             print('=====OUTCOME=====')
@@ -126,4 +141,20 @@ def parse_event(event):
             print('=================')
     return 0
 
+# Event comparator
+"""
+def compare(x, y):
+    if event_importance(x, y):
+        return 1
+    elif event_importance(y, x):
+        return -1
+    else:
+        return 0
+
+def event_importance(x, y):
+    if ('outcome' in x):
+        return x["start"] > y["start"]
+    else:
+        return x["happenedAt"] > y ["happenedAt"]
+"""
 # reminder: def message(teamA, teamB, gameTime, msg, teamAScore, teamBScore)

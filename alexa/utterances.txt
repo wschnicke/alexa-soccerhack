@@ -25,3 +25,5 @@ AliasIntent alias {alias} to {team}
 
 TrackTeamIntent track {team}
 TrackTeamIntent watch {team}
+UntrackTeamIntent untrack {team}
+UntrackTeamIntent unwatch {team}

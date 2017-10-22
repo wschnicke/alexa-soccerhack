@@ -86,7 +86,7 @@ def alias_team_intent(alias, team):
 @ask.intent('TrackTeamIntent')
 def track_team_intent(team):
     get = get_team(team)
-    result = 'error'
+    result = 'fail'
     if (get != None):
         team = get[1] # replace with proper name
         track = track_team(get[0]) # track with ID
@@ -97,15 +97,29 @@ def track_team_intent(team):
         else:
             result = 'already'
             print("Already tracking: " + team)
-    if (result == 'error'):
+    if (result == 'fail'):
         print("Failed to track: " + team)
     speech_text=render_template('track_team_' + result, team=team)
     return statement(speech_text).simple_card("Track Team", speech_text)
 
 @ask.intent('UntrackTeamIntent')
 def untrack_team_intent(team):
-    team_id = get_team_id(team)
-
+    get = get_team(team)
+    result = 'fail'
+    if (get != None):
+        team = get[1] # replace with proper name
+        untrack = untrack_team(get[0]) # track with ID
+        if (untrack == 1):
+            result = 'success'
+            print("Now untracked: " + team)
+            print(tracked_teams)
+        else:
+            result = 'already'
+            print("Already not tracked: " + team)
+    if (result == 'fail'):
+        print("Failed to untrack: " + team)
+    speech_text=render_template('untrack_team_' + result, team=team)
+    return statement(speech_text).simple_card("Untrack Team", speech_text)
 
 @ask.session_ended
 def session_ended():

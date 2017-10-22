@@ -35,5 +35,11 @@
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
+    }, {
+        "intent": "UntrackTeamIntent",
+        "slots": [{
+            "name": "team",
+            "type": "LIST_OF_TEAMS"
+          }]
     }]
 }

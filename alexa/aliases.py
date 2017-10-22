@@ -3,7 +3,7 @@ from .teams import get_team
 
 aliases = {}
 
-def add_alias(alias, team):
+def add_alias(alias, team_name):
     """Adds an same into alias database
 
     3 = existed, 2 = replaced, 1 = success, 0 = fail
@@ -14,30 +14,28 @@ def add_alias(alias, team):
     if type(alias) is not str or len(alias) < 2: # Invalid input
         return 0
     alias = alias.upper()
-    team_result = get_team(team)
-    if team_result == None:
-        #print("Attempted alias (" + alias + ") for team (" + team + ") but team did not exist")
-        return 0
-    team_id = team_result[0]
-    team_name = team_result[1]
-    with codecs.open('data/aliases.json', 'r+', encoding='utf-8') as f:
-        # If found, alert console that it is being replaced
-        if alias in aliases:
-            if (aliases[alias]["name"] != team):
-                #print("Replacing alias: " + alias + ": " + json.dumps(aliases[alias]))
-                return 2
-            else:
-                #print("Alias (" + alias + ") for (" + team + ") existed and was same")
-                return 3
-        # Edit dict
-        aliases[alias] = {'id': team_id, 'name': team} # <--- add `id` value.
-        # Replace file contents
-        f.seek(0)        # <--- should reset file position to the beginning.
-        json.dump(aliases, f, indent=4)
-        f.truncate()     # remove remaining part
-        # Alert console
-        #print("Added alias: " + alias + ": " + json.dumps(aliases[alias]))
-        return 1
+    team_result = get_team(team_name)
+    if (team_result != None):
+        team_id = team_result[0]
+        team_name = team_result[1]
+        with codecs.open('data/aliases.json', 'r+', encoding='utf-8') as f:
+            # If found, alert console that it is being replaced
+            if alias in aliases:
+                if (aliases[alias][1] != team_name):
+                    #print("Replacing alias: " + alias + ": " + json.dumps(aliases[alias]))
+                    return 2
+                else:
+                    #print("Alias (" + alias + ") for (" + team + ") existed and was same")
+                    return 3
+            # Edit dict
+            aliases[alias] = [team_id, team_name] # <--- add `id` value.
+            # Replace file contents
+            f.seek(0)        # <--- should reset file position to the beginning.
+            json.dump(aliases, f, indent=4)
+            f.truncate()     # remove remaining part
+            # Alert console
+            #print("Added alias: " + alias + ": " + json.dumps(aliases[alias]))
+            return 1
     return 0
 
 def remove_alias(alias):
@@ -51,11 +49,12 @@ def remove_alias(alias):
 
 def get_team_from_alias(alias):
     """Get a team ID and object given alias or return None
+    returns [teamid, teamname]
 
     Keyword arguments:
     alias
     """
-    alias = alias.upper
+    alias = alias.upper()
     if alias in aliases:
         return aliases[alias]
     return None

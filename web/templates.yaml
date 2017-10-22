@@ -24,8 +24,12 @@ last_result_draw: "{{ team }} drew the match against {{ opponent }}
 
 track_team_success: "Successfully tracking {{team}}"
 
-track_team_already: "Already tracking {{team}}"
+track_team_already: "{{team}} is already tracked"
 
 track_team_fail: "Failed to track {{team}}"
 
-you_are_dead: "<speak><phoneme alphabet=\"ipa\" ph=\"omɑewɑmoʊʃindeɾʊ\">omae wa mou shindeiru</phoneme></speak>"
+untrack_team_success: "Successfully untracked {{team}}"
+
+untrack_team_already: "{{team}} is already untracked"
+
+untrack_team_fail: "Failed to untrack {{team}}"

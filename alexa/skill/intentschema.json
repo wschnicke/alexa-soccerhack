@@ -41,6 +41,8 @@
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
+    }, {
+      "intent": "HighlightsIntent"
     },{
         "intent": "GetTeamLeagueDataIntent",
         "slots": [{

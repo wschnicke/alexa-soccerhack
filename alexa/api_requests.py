@@ -191,6 +191,7 @@ def get_league_table(competition_id: str, team_id = None):
     that/those teams
     This return is the leagueTable list entity in the api
     """
+    # TODO: change this to be dynamic
     payload = {'api_key': api_key,
                'competition_id': '2'}
     if team_id is not None:

@@ -5,6 +5,9 @@ from .teams import tracked_teams
 from web.sockets import message
 from utils.utilities import goooal
 
+from flask import render_template
+from web.flask import app
+
 DATE_DEFICIT = 5 # looks at this amount of updates on fresh updates / add teams
 REPORT_EVENT_COUNT = 5 # Report last 10 events maximum
 tracked_types = ["goal"]
@@ -89,8 +92,8 @@ def update_highlights(new_teams = []):
     """get latested updates in object format and return the new count
     """
     new_matches = update_tracked_matches(new_teams)
-    updates_to_report = get_tracked_updates(new_matches) # get updates
-    return len(updates_to_report) # returns new size of updates
+    updates = get_tracked_updates(new_matches) # get updates
+    return len(updates) # returns new size of updates
 
 # Do steps 1, 2 and report updates, parsing each one
 
@@ -99,18 +102,18 @@ def report_updates():
     """
     global tracked_updates
     update_highlights()
-    updates = []
+    updates_to_report = []
     if (len(tracked_updates) > 0):
         #tracked_updates = sorted(tracked_updates, cmp=make_comparator(event_importance))
-        updates = list(tracked_updates)
+        #updates = list(tracked_updates)
         eventCount = 0
-        for event in updates:
-            if (eventCount < REPORT_EVENT_COUNT):
+        for event in tracked_updates:
+            if (eventCount > REPORT_EVENT_COUNT):
                 break
-            parse_event(event)
-            eventCount++
+            updates_to_report.append(parse_event(event))
+            eventCount += 1
         tracked_updates = []
-    return updates
+    return updates_to_report
 
 def count_updates():
     return len(tracked_updates)
@@ -125,14 +128,15 @@ def parse_event(event):
             home_team = event['homeTeam']['name']
             away_team = event['awayTeam']['name']
             if (event['type'] == 'goal'):
+                g = goooal()
                 scoring_team = home_team if (event['scoringSide'] == 'H') else away_team
                 if (event['ownGoal']):
-                    msg = "OWN " + goooal() + " for " + scoring_team + " by " + event['scoringPlayer']
+                    msg = "OWN " + g + " for " + scoring_team + " by " + event['scoringPlayer']
                 else:
-                    msg = goooal() + " for " + scoring_team + " by " + event['scoringPlayer']['name']
+                    msg = g + " for " + scoring_team + " by " + event['scoringPlayer']['name']
                 print("GOAL: " + msg)
                 message(home_team, away_team, msg, event['homeGoals'], event['awayGoals'])
-                return 1
+                return {"update": "highlights_goal", "match_time":match_time, "goal":g, "scoring_player":event['scoringPlayer']['name'], "scoring_team":scoring_team, "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
             elif (event['type'] == 'penalty'):
                 # TODO
                 print('PENALTY: TBD')
@@ -148,10 +152,10 @@ def parse_event(event):
             away_team = event['homeTeam']['name']
             winner = home_team if (event['outcome']['winner'] == 'home') else away_team
             msg = 'Game completed with winner: ' + winner
+            print("OUTCOME: " + msg)
             message(home_team, away_team, msg, event['homeGoals'], event['awayGoals'])
-
-            return 1
-    return 0
+            return {"update":"highlights_winner", "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
+    return None
 
 # Event comparator
 """

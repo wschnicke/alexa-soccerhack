@@ -32,3 +32,11 @@ UntrackTeamIntent untrack {team}
 UntrackTeamIntent don't track {team}
 UntrackTeamIntent unwatch {team}
 UntrackTeamIntent don't watch {team}
+
+HighlightsIntent updates
+HighlightsIntent highlights
+
+GetTeamLeagueDataIntent {team} league data
+GetTeamLeagueDataIntent league data for {team}
+GetTeamLeagueDataIntent {team} league info
+GetTeamLeagueDataIntent league info for {team}

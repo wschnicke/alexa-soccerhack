@@ -22,12 +22,11 @@ AliasIntent let {alias} be an alias for {team}
 AliasIntent let {alias} mean {team}
 AliasIntent alias {alias} with {team}
 AliasIntent alias {alias} to {team}
+<<<<<<< HEAD
+=======
 AliasIntent alias {alias} for {team}
 AliasIntent alias {alias} means {team}
+>>>>>>> 021e1244f4d796e3526fe51aa5d2b4c9fe56163c
 
 TrackTeamIntent track {team}
-TrackTeamIntent follow {team}
 TrackTeamIntent watch {team}
-UntrackTeamIntent untrack {team}
-UntrackTeamIntent follow {team}
-UntrackTeamIntent unwatch {team}

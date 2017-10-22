@@ -24,12 +24,12 @@ AliasIntent let {alias} be an alias for {team}
 AliasIntent let {alias} mean {team}
 AliasIntent alias {alias} with {team}
 AliasIntent alias {alias} to {team}
-
 AliasIntent alias {alias} for {team}
 AliasIntent alias {alias} means {team}
 
 TrackTeamIntent track {team}
 TrackTeamIntent watch {team}
+
 UntrackTeamIntent untrack {team}
 UntrackTeamIntent don't track {team}
 UntrackTeamIntent unwatch {team}

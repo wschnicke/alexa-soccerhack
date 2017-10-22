@@ -1,5 +1,6 @@
 import logging, configparser, datetime, json
 import alexa.api_requests
+import time
 from flask import render_template
 from flask_ask import Ask, request, session, question, statement
 
@@ -21,10 +22,9 @@ def start_soccer_stat_intent():
 
 @ask.intent('LastMatchResultIntent')
 def last_match_result(team):
-    #TODO handle games determined by penalty kicks
     team_info = get_team(team)
     team_id = team_info[0]
-    side = "away"
+
     match_id = alexa.api_requests.get_last_match_id(str(team_id))
     #guard clause for no match found
     if(match_id == -1):
@@ -32,11 +32,13 @@ def last_match_result(team):
         return statement(speech_text)
 
     match_details = alexa.api_requests.request_match_details(str(match_id))
+    side = "away"
     if(team_id == match_details['homeTeam']['dbid']):
         team_name = match_details['homeTeam']['name']
         opponent = match_details['awayTeam']['name']
         team_score = match_details['homeGoals']
         opp_score = match_details['awayGoals']
+        side = "home"
     else:
         team_name = match_details['awayTeam']['name']
         opponent = match_details['homeTeam']['name']
@@ -56,18 +58,60 @@ def last_match_result(team):
     if match_details['outcome']['type'] == "penalties":
         pks = "_pks"
 
-    speech_text = render_template('last_result_' + template + pks, team=team_name, team_score=team_score, opponent=opponent, opp_score=opp_score)
+    speech_text = render_template('last_result_' + template + pks,
+        team=team_name, team_score=team_score, opponent=opponent,
+        opp_score=opp_score)
     return statement(speech_text)
 
 @ask.intent('CurrentMatchStatusIntent')
 def current_match_score(team):
-    #TODO: call api to get match score data, set score
-    team_score=1
-    opp_score=123
-    opp="bad guys"
-    minute ="20"
+    team_info = get_team(team)
+    team_id = team_info[0]
+    match = alexa.api_requests.get_ongoing_matches(str(team_id))
+    #guard clause for no match found
+    if(len(match) == 0):
+        speech_text = render_template('no_current_match', team=team_info[1])
+        return statement(speech_text)
+    #assuming a team can't play more than one game at once
+    match_id = match[0]['dbid']
+    match_details = alexa.api_requests.request_match_details(str(match_id))
 
-    speech_text = render_template('current_status', team=team, team_score=team_score, opponent=opp, opp_score=opp_score, minute = minute)
+    current_state = match_details['currentState']
+    if(team_id == match_details['homeTeam']['dbid']):
+        team_name = match_details['homeTeam']['name']
+        opponent = match_details['awayTeam']['name']
+        team_score = match_details['homeGoals']
+        opp_score = match_details['awayGoals']
+    else:
+        team_name = match_details['awayTeam']['name']
+        opponent = match_details['homeTeam']['name']
+        team_score = match_details['homeGoals']
+        opp_score = match_details['awayGoals']
+
+    #TODO 50% chance of time zone error here but I'm to tired to figure it out.
+    minute = 0
+    #find current minute if necessary
+    if(current_state == 1 or current_state == 3 or current_state == 5 or current_state == 7):
+        state_start_time = match_details['currentStateStart']
+        state_start_time = state_start_time / 1000
+        current_time = time.time()
+        minute = int((current_time - state_start_time) / 60)
+        if(current_state == 3):
+            minute = minute + 45
+        elif(current_state == 5):
+            minute = minute + 90
+        elif(current_state == 7):
+            minute = minute + 105
+
+    template = "tied_"
+    if(opp_score > team_score):
+        template = "losing_"
+    elif(team_score > opp_score):
+        template = "winning_"
+    else:
+        template = "tied_"
+    speech_text = render_template('current_status_' + template + str(current_state), team=team,
+        team_score=team_score, opponent=opponent, opp_score=opp_score, minute = minute)
     return statement(speech_text)
 
 @ask.intent('NextMatchTimeIntent')

@@ -38,10 +38,14 @@ def get_last_match_id(team_id: str):
     #TODO: consider the following:
     #       it = reversed(matches)
     for match in reversed(matches):
-        if match['isResult']:
+        # check if match is finished
+        if match['currentState'] == 9:
+        #if match['isResult']:
             return match['dbid']
             #TODO: lol is this redundant?
             break
+    # return -1 if no match found
+    return -1
 
 # returns match_id of latest match between 2 teams
 #TODO: add pagination
@@ -79,10 +83,13 @@ def get_last_match_id_2(team1_id: str, team2_id: str):
 
     #for i in xrange(len(matchups), 0, -1):
     for match in reversed(matchups):
-        if match['isResult']:
+        # check for finished matches
+        if match['currentState'] == 9:
             return match['dbid']
             #TODO: lol is this redundant?
             break
+    #return -1 if no match found
+    return -1
 
 # returns match_id of next fixture for given team
 def get_next_fixture_id(team_id: str):
@@ -105,10 +112,14 @@ def get_next_fixture_id(team_id: str):
         return -1;
 
     for match in matches:
-        if not match['isResult']:
+        # check if match is fixture
+        if match['currentState'] == 0:
             return match['dbid']
             #TODO: lol is this redundant?
             break
+
+    #return -1 if no match found
+    return -1
 
 def get_next_fixture_id_2(team1_id: str, team2_id: str):
     """ Given two team_ids, returns their most recent completed match id
@@ -144,13 +155,18 @@ def get_next_fixture_id_2(team1_id: str, team2_id: str):
 
     #for i in xrange(len(matchups), 0, -1):
     for match in matches:
-        if not match['isResult']:
+        # check if match is fiture
+        if match['currentState'] == 0:
             return match['dbid']
             #TODO: lol is this redundant?
             break
 
+    #return -1 if no match found
+    return -1
+
+#TODO: test once match is live
 def get_ongoing_matches(team_id = None, competition_id = None):
-    """ Return all ongoing matches
+    """ Return all ongoing matches; returns empty list if no ongoing matches
     Optional parameters team_id and competition_id let you specify a specific
     team or league
     """
@@ -168,7 +184,7 @@ def get_ongoing_matches(team_id = None, competition_id = None):
     matches = request_matches(payload)
     # return subset of matches that have not ended
     #TODO: make list comprehension?
-    return list(filter(lambda x: not x['isResult'], matches))
+    return list(filter(lambda x: 0 < x['currentState'] < 9, matches))
     #return [i for i in list if i['isResult']]
 
 def get_league_table(competition_id: str, team_id = None):

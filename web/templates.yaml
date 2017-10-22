@@ -62,9 +62,8 @@ alias_replace: "Replaced alias {{alias}} for team {{team}}."
 alias_same: "{{alias}} already exists as an alias for team {{team}}."
 alias_fail: "Failed setting {{alias}} as an alias for {{team}}."
 
-next_match_time: "<speak>The next {{ team }} match is against {{ opponent }} and starts on
-  <say-as interpret-as=\"date\">{{ year }}{{ month }}{{ day }}</say-as>
-  at <say-as interpret-as=\"time\">{{ hour }}{{ minutes }}</say-as>.</speak>"
+next_match_time: "<speak>The next {{ team }} match is against {{ opponent }} on
+  <say-as interpret-as=\"date\">{{ year }}{{ month }}{{ day }}</say-as></speak>"
 no_match_found_last_year: "{{ team }} has no fixtures in the next year"
 
 last_result_win: "{{ team }} won the match against {{ opponent }}
@@ -87,9 +86,12 @@ untrack_team_success: "Successfully untracked {{team}}"
 untrack_team_already: "{{team}} is already untracked"
 untrack_team_fail: "Failed to untrack {{team}}"
 
-highlights_outcome: "<speak>{{home_team}} - {{away_team}} match is now over! Final score: {{home_team}} {{home_team_score}} - {{away_team}} {{away_team_score}}<break time=\"3s\"/></speak>"
-highlights_goal: "<speak>{{goal}} by {{player}} for {{scoring_team}} in {{home_team}} - {{away_team}} match at {{match_time}} minutes.
-Score: {{home_team}} ({{home_team_score}}) - {{away_team}} ({{away_team_score}})<break time=\"3s\"/></speak>"
+highlights_outcome: "
+  {{home_team}} - {{away_team}} match is now over!
+  Final score: {{home_team}} {{home_team_score}} - {{other_team}} {{away_team_score}}<break time=\"1.5s\"/>"
+highlights_goal: "{{goal}} by {{scoring_player}} for {{scoring_team}} against {{other_team}} at {{match_time}} minutes.<break time=\"1.5s\"/>"
+Score: "{{home_team}} ({{home_team_score}}) - {{away_team}} ({{away_team_score}})<break time=\"1.5s\"/>"
+no_highlights: "No updates found"
 
 error_finding_team: "I'm sorry, I'm not sure what team you're talking about"
 team_not_in_league: "I'm sorry, {{ team }} is not in this league"

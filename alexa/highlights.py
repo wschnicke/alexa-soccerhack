@@ -130,13 +130,14 @@ def parse_event(event):
             if (event['type'] == 'goal'):
                 g = goooal()
                 scoring_team = home_team if (event['scoringSide'] == 'H') else away_team
+                other_team = away_team if (event['scoringSide'] == 'H') else home_team
                 if (event['ownGoal']):
                     msg = "OWN " + g + " for " + scoring_team + " by " + event['scoringPlayer']
                 else:
                     msg = g + " for " + scoring_team + " by " + event['scoringPlayer']['name']
                 print("GOAL: " + msg)
-                message(home_team, away_team, msg, event['homeGoals'], event['awayGoals'])
-                return {"update": "highlights_goal", "match_time":match_time, "goal":g, "scoring_player":event['scoringPlayer']['name'], "scoring_team":scoring_team, "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
+                message(home_team, away_team, match_time, msg, event['homeGoals'], event['awayGoals'])
+                return {"update": "highlights_goal", "match_time":match_time, "goal":g, "scoring_player":event['scoringPlayer']['name'], "scoring_team":scoring_team, "other_team":other_team, "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
             elif (event['type'] == 'penalty'):
                 # TODO
                 print('PENALTY: TBD')
@@ -153,8 +154,8 @@ def parse_event(event):
             winner = home_team if (event['outcome']['winner'] == 'home') else away_team
             msg = 'Game completed with winner: ' + winner
             print("OUTCOME: " + msg)
-            message(home_team, away_team, msg, event['homeGoals'], event['awayGoals'])
-            return {"update":"highlights_winner", "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
+            message(home_team, away_team, None, msg, event['homeGoals'], event['awayGoals'])
+            return {"update":"highlights_outcome", "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
     return None
 
 # Event comparator

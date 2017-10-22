@@ -176,6 +176,7 @@ def alias_team_intent(alias, team):
     elif add == 3:
         result = 'same'
     speech_text = render_template('alias_' + result, alias=alias, team=team)
+    # TODO: Add reprompt on fail
     return statement(speech_text).simple_card("Alias", speech_text)
 
 # TODO: Make these work with aliases!
@@ -219,7 +220,16 @@ def untrack_team_intent(team):
 
 @ask.intent('HighlightsIntent')
 def highlights_intent(): # TODO: Add highlights for specific team search
-    speech_text = report_updates()
+    updates = report_updates()
+    speech_text = ""
+    if len(updates) == 0:
+        speech_text = render_template("no_highlights")
+    else:
+        updates.reverse()
+        for update in updates:
+            print(update)
+            speech_text += render_template(update["update"], **update)
+    speech_text = "<speak>" + speech_text + "</speak>"
     return statement(speech_text).simple_card("Updates", speech_text)
 
 @ask.intent('GetTeamLeagueDataIntent')

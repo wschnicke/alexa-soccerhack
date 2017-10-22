@@ -7,7 +7,7 @@ from utils.utilities import goooal
 
 DATE_DEFICIT = 5 # looks at this amount of updates on fresh updates / add teams
 REPORT_EVENT_COUNT = 5 # Report last 10 events maximum
-tracked_types = [goal"]
+tracked_types = ["goal"]
 
 tracked_matches = [] # these are ongoing matches, ideally, remove when finished
 tracked_updates = [] # current update list that hasn't been reported yet
@@ -149,7 +149,7 @@ def parse_event(event):
             winner = home_team if (event['outcome']['winner'] == 'home') else away_team
             msg = 'Game completed with winner: ' + winner
             message(home_team, away_team, msg, event['homeGoals'], event['awayGoals'])
-            
+
             return 1
     return 0
 

@@ -2,11 +2,8 @@ current_status: "The score for the {{team}} match is {{team}} {{team_score}},
   {{opponent}} {{opp_score}} at minute {{ minute }}."
 
 alias_success: "{{alias}} is now an alias for team {{team}}."
-
 alias_replace: "Replaced alias {{alias}} for team {{team}}."
-
 alias_same: "{{alias}} already exists as an alias for team {{team}}."
-
 alias_fail: "Failed setting {{alias}} as an alias for {{team}}."
 
 next_match_time: "<speak>The next {{ team }} match is against {{ opponent }} and starts on
@@ -15,21 +12,15 @@ next_match_time: "<speak>The next {{ team }} match is against {{ opponent }} and
 
 last_result_win: "{{ team }} won the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
-
 last_result_loss: "{{ team }} lost the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
-
 last_result_draw: "{{ team }} drew the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
 
 track_team_success: "Successfully tracking {{team}}"
-
 track_team_already: "{{team}} is already tracked"
-
 track_team_fail: "Failed to track {{team}}"
 
 untrack_team_success: "Successfully untracked {{team}}"
-
 untrack_team_already: "{{team}} is already untracked"
-
 untrack_team_fail: "Failed to untrack {{team}}"

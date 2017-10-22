@@ -150,7 +150,7 @@ def parse_event(event):
         elif ('outcome' in event):
             # TODO
             home_team = event['homeTeam']['name']
-            away_team = event['homeTeam']['name']
+            away_team = event['awayTeam']['name']
             winner = home_team if (event['outcome']['winner'] == 'home') else away_team
             msg = 'Game completed with winner: ' + winner
             print("OUTCOME: " + msg)

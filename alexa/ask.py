@@ -14,7 +14,7 @@ api_key = config['DEFAULT']['APIkey']
 
 @ask.launch
 def start_soccer_stat_intent():
-    welcome_msg = "this is a test message"
+    welcome_msg = "Welcome to Soccer Stats!"
     return question(welcome_msg)
 
 @ask.intent('LastMatchResultIntent')

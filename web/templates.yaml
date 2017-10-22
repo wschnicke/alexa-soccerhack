@@ -1,5 +1,61 @@
-current_status: "The score for the {{team}} match is {{team}} {{team_score}},
-  {{opponent}} {{opp_score}} at minute {{ minute }}."
+no_current_match: "{{ team }} is not currently playing."
+current_status_winning_1: "{{ team }} is beating {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the first half."
+current_status_losing_1: "{{ team }} is losing to {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the first half."
+current_status_tied_1: "{{ team }} is tied with {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the first half."
+current_status_winning_2: "{{ team }} is beating {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at half time."
+current_status_losing_2: "{{ team }} is losing to {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at half time."
+current_status_tied_2: "{{ team }} is tied with {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at half time."
+current_status_winning_3: "{{ team }} is beating {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the second half."
+current_status_losing_3: "{{ team }} is losing to {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the second half."
+current_status_tied_3: "{{ team }} is tied with {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the second half."
+current_status_winning_4: "{{ team }} is beating {{ opponent }} {{ team_score }}
+  to {{ opp_score }} going into extra time."
+current_status_losing_4: "{{ team }} is losing to {{ opponent }} {{ team_score }}
+  to {{ opp_score }} going into extra time."
+current_status_tied_4: "{{ team }} is tied with {{ opponent }} {{ team_score }}
+  to {{ opp_score }} going into extra time."
+current_status_winning_5: "{{ team }} is beating {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the first half of extra time."
+current_status_losing_5: "{{ team }} is losing to {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the first half of extra time."
+current_status_tied_5: "{{ team }} is tied with {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the first half of extra time."
+current_status_winning_6: "{{ team }} is beating {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at the extra time break."
+current_status_losing_6: "{{ team }} is losing to {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at the extra time break."
+current_status_tied_6: "{{ team }} is tied with {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at the extra time break."
+current_status_winning_7: "{{ team }} is beating {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the second half of extra time."
+current_status_losing_7: "{{ team }} is losing to {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the second half of extra time."
+current_status_tied_7: "{{ team }} is tied with {{ opponent }} {{ team_score }}
+  to {{ opp_score }} at minute {{ minute }} in the second half of extra time."
+current_status_winning_8: "The game is currently in penalties, the score after
+  regular and extra time was {{ team }}, {{ team_score }}, {{ opponent }},
+  {{ opp_score }}"
+current_status_losing_8: "The game is currently in penalties, the score after
+  regular and extra time was {{ team }}, {{ team_score }}, {{ opponent }},
+  {{ opp_score }}"
+current_status_tied_8: "The game is currently in penalties, the score after
+  regular and extra time was {{ team }}, {{ team_score }}, {{ opponent }},
+  {{ opp_score }}"
+current_status_winning_101: "The {{ team }} game has been abandoned."
+current_status_losing_101: "The {{ team }} game has been abandoned."
+current_status_tied_101: "The {{ team }} game has been abandoned."
+current_status_winning_102: "The {{ team }} game has been postponed."
+current_status_losing_102: "The {{ team }} game has been postponed."
+current_status_tied_102: "The {{ team }} game has been postponed."
 
 alias_success: "{{alias}} is now an alias for team {{team}}."
 alias_replace: "Replaced alias {{alias}} for team {{team}}."

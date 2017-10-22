@@ -91,6 +91,7 @@ def get_last_match_id_2(team1_id: str, team2_id: str):
     return -1
 
 # returns match_id of next fixture for given team
+# TODO: fix; doesn't get next match, gets two later
 def get_next_fixture_id(team_id: str):
     """ Given a team_id, returns the next upcoming match id for team
     Returns -1 if no matches found in next year

@@ -15,7 +15,7 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 api_key = config['DEFAULT']['APIkey']
 
-
+#TODO: Add soccer listing functionality
 @ask.launch
 def start_soccer_stat_intent():
     welcome_msg = "Welcome to Soccer Stats!"

@@ -75,4 +75,4 @@ def get_team(team_name: str): # Combination of get_team_name and get_team_id
 
 with open('data/team_list.json') as teams:
     teams = json.load(teams)
-    print ('Loaded teams list with ' + str(len(teams)) + ' entries')
+    print (str(len(teams)) + ' teams loaded.')

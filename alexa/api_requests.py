@@ -37,11 +37,17 @@ def get_last_match_id(team_id: str):
     if len(matches) == 0:
         return -1;
 
-    for match in matches:
-        if match['isResult']:
-            return match['dbid']
+    #TODO: consider the following:
+    #       it = reversed(matches)
+    for i in range(len(matches) - 1, 0, -1):
+        if matches[i]['isResult']:
+            return matches[i]['dbid']
             #TODO: lol is this redundant?
             break
+
+# returns match_id of latest match between 2 teams
+def get_last_match_id_2(team1_id: str, team2_id: str):
+    return '0'
 
 # returns match_id of next fixture for given team
 def get_next_fixture_id(team_id: str):
@@ -69,8 +75,6 @@ def get_next_fixture_id(team_id: str):
             #TODO: lol is this redundant?
             break
 
-def get_last_match(team1_id: str, team2_id: str):
-    return '0'
 
 
 #TODO: update all these to not store the response

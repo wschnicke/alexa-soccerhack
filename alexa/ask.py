@@ -20,6 +20,9 @@ def start_soccer_stat_intent():
 def last_match_result(team):
     team_info = get_team(team)
     # !!!TODO: Add check. if get_team is None, this should fail. otherwise it errors in the next line!!!
+    if(team_info == None):
+        speech_text = render_template('error_finding_team')
+        return statement(speech_text)
     team_id = team_info[0]
 
     match_id = alexa.api_requests.get_last_match_id(str(team_id))
@@ -63,6 +66,9 @@ def last_match_result(team):
 @ask.intent('CurrentMatchStatusIntent')
 def current_match_score(team):
     team_info = get_team(team)
+    if(team_info == None):
+        speech_text = render_template('error_finding_team')
+        return statement(speech_text)
     team_id = team_info[0]
     match = alexa.api_requests.get_ongoing_matches(str(team_id))
     #guard clause for no match found
@@ -114,6 +120,9 @@ def current_match_score(team):
 @ask.intent('NextMatchTimeIntent')
 def match_time(team):
     team_info = get_team(team)
+    if(team_info == None):
+        speech_text = render_template('error_finding_team')
+        return statement(speech_text)
     team_id = team_info[0]
     match_id = alexa.api_requests.get_next_fixture_id(str(team_id))
     #guard clause for no match found

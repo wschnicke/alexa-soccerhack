@@ -6,7 +6,8 @@ from web.sockets import message
 from utils.utilities import goooal
 
 DATE_DEFICIT = 5 # looks at this amount of updates on fresh updates / add teams
-tracked_types = ["penalty", "goal", "card"]
+REPORT_EVENT_COUNT = 5 # Report last 10 events maximum
+tracked_types = ["goal"]
 
 tracked_matches = [] # these are ongoing matches, ideally, remove when finished
 tracked_updates = [] # current update list that hasn't been reported yet
@@ -102,10 +103,17 @@ def report_updates():
     if (len(tracked_updates) > 0):
         #tracked_updates = sorted(tracked_updates, cmp=make_comparator(event_importance))
         updates = list(tracked_updates)
+        eventCount = 0
         for event in updates:
+            if (eventCount < REPORT_EVENT_COUNT):
+                break
             parse_event(event)
+            eventCount++
         tracked_updates = []
     return updates
+
+def count_updates():
+    return len(tracked_updates)
 
 # Parse and process events
 
@@ -136,9 +144,13 @@ def parse_event(event):
                 print('OTHER: TBD')
         elif ('outcome' in event):
             # TODO
-            print('=====OUTCOME=====')
-            print(event)
-            print('=================')
+            home_team = event['homeTeam']['name']
+            away_team = event['homeTeam']['name']
+            winner = home_team if (event['outcome']['winner'] == 'home') else away_team
+            msg = 'Game completed with winner: ' + winner
+            message(home_team, away_team, msg, event['homeGoals'], event['awayGoals'])
+
+            return 1
     return 0
 
 # Event comparator

@@ -136,7 +136,7 @@ def parse_event(event):
                     msg = "OWN " + g + " for " + scoring_team + " by " + event['scoringPlayer']
                 else:
                     msg = g + " for " + scoring_team + " by " + event['scoringPlayer']['name']
-                print("GOAL: " + msg)
+                #print("GOAL: " + msg)
                 message(home_team, away_team, match_time, msg, event['homeGoals'], event['awayGoals'])
                 return {"update": "highlights_goal", "happened_at": event['happenedAt'], "match_time":match_time, "goal":g, "scoring_player":event['scoringPlayer']['name'], "scoring_team":scoring_team, "other_team":other_team, "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
             elif (event['type'] == 'penalty'):
@@ -154,7 +154,7 @@ def parse_event(event):
             away_team = event['awayTeam']['name']
             winner = home_team if (event['outcome']['winner'] == 'home') else away_team
             msg = 'Game completed with winner: ' + winner
-            print("OUTCOME: " + msg)
+            #print("OUTCOME: " + msg)
             message(home_team, away_team, None, msg, event['homeGoals'], event['awayGoals'])
             # TODO: Web app doesn't sort this properly :( since sort is done AFTER this function is called
             return {"update":"highlights_outcome", "happened_at": event["end"], "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}

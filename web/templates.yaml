@@ -88,7 +88,7 @@ untrack_team_fail: "Failed to untrack {{team}}"
 
 highlights_outcome: "
   {{home_team}} - {{away_team}} match is now over!
-  Final score: {{home_team}} {{home_team_score}} - {{other_team}} {{away_team_score}}<break time=\"1.5s\"/>"
+  Final score: {{home_team}} {{home_team_score}} - {{away_team}} {{away_team_score}}<break time=\"1.5s\"/>"
 highlights_goal: "{{goal}} by {{scoring_player}} for {{scoring_team}} against {{other_team}} at {{match_time}} minutes.<break time=\"1.5s\"/>"
 Score: "{{home_team}} ({{home_team_score}}) - {{away_team}} ({{away_team_score}})<break time=\"1.5s\"/>"
 no_highlights: "No updates found"

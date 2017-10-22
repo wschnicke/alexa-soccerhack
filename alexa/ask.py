@@ -98,11 +98,6 @@ def match_time(team):
         minutes = start_time.minute)
     return statement(speech_text)
 
-@ask.intent('HelloWorldIntent')
-def hello_world_intent():
-    speech_text = 'Hello world'
-    return statement(speech_text).simple_card('HelloWorld', speech_text)
-
 @ask.intent('HelpIntent')
 def help_intent():
     """Offer relevant help for HelpIntent

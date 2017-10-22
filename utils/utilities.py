@@ -1,4 +1,12 @@
 import os
+from random import randint
+
+def goooal(o=0):
+    """returns string of GOAL with a random number of Os unless specified number > 0
+    """
+    if (not o):
+        o = randint(1, 10)
+    return "G" + "O" * o + "AL"
 
 #TODO: crazy hacky, very slow, fix later
 topLevelDir = 'alexa-soccerhack'

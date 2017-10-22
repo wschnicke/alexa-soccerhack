@@ -2,6 +2,11 @@ import unittest
 from alexa.teams import *
 
 class TestTeams(unittest.TestCase):
+    def team_get_team_id_none(self):
+        self.assertEqual(get_team_id(), None)
+
+    def team_get_team_id_empty(self):
+        self.assertEqual(get_team_id(" ", None)
 
     def test_get_team_id_exists(self):
         self.assertEqual(get_team_id("Newcastle United"), 19)
@@ -11,6 +16,12 @@ class TestTeams(unittest.TestCase):
 
     def test_get_team_id_doesnt_exist(self):
         self.assertEqual(get_team_id("Nonexistant Team") ,None)
+
+    def team_get_team_none(self):
+        self.assertEqual(get_team(), None)
+
+    def team_get_team_empty(self):
+        self.assertEqual(get_team(" ", None)
 
     def test_get_team_exists(self):
         self.assertEqual(get_team("Newcastle United"), [19, "Newcastle United"])

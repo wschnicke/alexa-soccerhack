@@ -44,7 +44,7 @@ def remove_alias(alias):
     Keyword arguments:
     alias
     """
-    alias = alias.upper
+    alias = alias.upper()
     return aliases.pop(alias, None) # None here prevents the error if key is not found
 
 def get_team_from_alias(alias):

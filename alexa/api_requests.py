@@ -37,9 +37,9 @@ def get_last_match_id(team_id: str):
 
     #TODO: consider the following:
     #       it = reversed(matches)
-    for i in range(len(matches), 0, -1):
-        if matches[i - 1]['isResult']:
-            return matches[i - 1]['dbid']
+    for match in reversed[matches]:
+        if match['isResult']:
+            return match['dbid']
             #TODO: lol is this redundant?
             break
 

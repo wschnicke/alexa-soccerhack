@@ -41,6 +41,7 @@
             "name": "team",
             "type": "LIST_OF_TEAMS"
           }]
+<<<<<<< HEAD
     },{
         "intent": "GetTeamLeagueDataIntent",
         "slots": [{
@@ -49,4 +50,13 @@
           }]
 
     }]
+=======
+    }, {
+        "intent": "LeagueTableIntent",
+        "slots": [{
+            "name": "league",
+            "type": "LIST_OF_LEAGUES"
+          }]
+      }]
+>>>>>>> a0c32f82c2c49e222b49280a8fcc8a1a786782ac
 }

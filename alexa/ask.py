@@ -47,8 +47,8 @@ def last_match_result(team):
     else:
         team_name = match_details['awayTeam']['name']
         opponent = match_details['homeTeam']['name']
-        team_score = match_details['homeGoals']
-        opp_score = match_details['awayGoals']
+        team_score = match_details['awayGoals']
+        opp_score = match_details['homeGoals']
 
     #determine winner
     template = 'draw'
@@ -93,8 +93,8 @@ def current_match_score(team):
     else:
         team_name = match_details['awayTeam']['name']
         opponent = match_details['homeTeam']['name']
-        team_score = match_details['homeGoals']
-        opp_score = match_details['awayGoals']
+        team_score = match_details['awayGoals']
+        opp_score = match_details['homeGoals']
 
     #TODO 50% chance of time zone error here but I'm to tired to figure it out.
     minute = 0

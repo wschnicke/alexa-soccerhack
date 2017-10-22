@@ -11,6 +11,8 @@ NextMatchTimeIntent when is the next {team} match
 NextMatchTimeIntent next match for {team}
 NextMatchTimeIntent next match {team}
 
+LastMatchResultIntent {team} result
+LastMatchResultIntent what was the result of the {team} match
 LastMatchResultIntent {team} last match
 LastMatchResultIntent {team} last match result
 LastMatchResultIntent did {team} win
@@ -34,7 +36,9 @@ UntrackTeamIntent unwatch {team}
 UntrackTeamIntent don't watch {team}
 
 HighlightsIntent updates
+HighlightsIntent for updates
 HighlightsIntent highlights
+HighlightsIntent for highlights
 
 GetTeamLeagueDataIntent {team} league data
 GetTeamLeagueDataIntent league data for {team}

@@ -8,6 +8,7 @@ from web.flask import app
 from .aliases import *
 from .teams import *
 from .highlights import report_updates
+from utils.utilities import goooal
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
@@ -258,8 +259,15 @@ def get_team_league_data_intent(team):
     losses = team_data['losses']
     draws = team_data['draws']
 
-    speech_text = render_template('team_league_data', team=team,
-        points=points, wins=wins, losses=losses, draws=draws, place=team_place)
+    speech_text = render_template('team_league_data', team=team, points=points, wins=wins, losses=losses, draws=draws, place=team_place)
+    return statement(speech_text)
+
+@ask.intent('GoalIntent')
+def goal_intent(o=60):
+    if (o == None or not(o.isdigit)):
+        o = 60
+    speech_text = render_template('goooal', goooal = (goooal(int(o), 5)))
+    return statement(speech_text).simple_card(speech_text)
 
 @ask.session_ended
 def session_ended():

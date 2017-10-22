@@ -44,3 +44,8 @@ GetTeamLeagueDataIntent {team} league data
 GetTeamLeagueDataIntent league data for {team}
 GetTeamLeagueDataIntent {team} league info
 GetTeamLeagueDataIntent league info for {team}
+
+GoalIntent give me a goal
+GoalIntent goal {o}
+GoalIntent goal me {o}
+GoalIntent goal

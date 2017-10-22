@@ -55,5 +55,11 @@
             "name": "league",
             "type": "LIST_OF_LEAGUES"
           }]
-      }]
+    }, {
+        "intent": "GoalIntent",
+        "slots": [{
+          "name": "o",
+          "type": "AMAZON.NUMBER"
+        }]
+    }]
 }

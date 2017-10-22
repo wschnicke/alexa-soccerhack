@@ -8,11 +8,14 @@ from .teams import *
 
 ask = Ask(app, "/ask")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
+<<<<<<< HEAD
 config = configparser.ConfigParser()
 config.read('config.ini')
 api_key = config['DEFAULT']['APIkey']
 team_list_fp = open('data/team_list.json', 'r')
 team_ids = json.load(team_list_fp)
+=======
+>>>>>>> 021e1244f4d796e3526fe51aa5d2b4c9fe56163c
 
 @ask.launch
 def start_soccer_stat_intent():
@@ -22,6 +25,7 @@ def start_soccer_stat_intent():
 @ask.intent('LastMatchResultIntent')
 def last_match_result(team):
     #TODO handle games determined by penalty kicks
+<<<<<<< HEAD
     team_id=team_ids[team]
     side = "away"
     #match_id = get_last_match_id(str(team_id))
@@ -50,6 +54,14 @@ def last_match_result(team):
         speech_text = render_template('last_result_draw', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
     else:
         speech_text = render_template('last_result_loss', team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+=======
+    template = 'draw'
+    if team_score > opp_score:
+        template = 'win'
+    elif opp_score > team_score:
+        template = 'loss'
+    speech_text = render_template('last_result_' + template, team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+>>>>>>> 021e1244f4d796e3526fe51aa5d2b4c9fe56163c
     return statement(speech_text)
 
 @ask.intent('CurrentMatchStatusIntent')
@@ -60,7 +72,7 @@ def current_match_score(team):
     opp="bad guys"
     minute ="20"
     if (opp_score - team_score) > 4:
-            speech_text = render_template('you_are_dead')
+        speech_text = render_template('you_are_dead')
     else:
         speech_text = render_template('current_status', team=team, team_score=team_score, opponent=opp, opp_score=opp_score, minute = minute)
     return statement(speech_text)
@@ -94,7 +106,7 @@ def help_intent():
 def alias_team_intent(alias, team):
     """Add alias to alias database, called by Alexa
 
-    Keyword arguments:liverpool next match
+    Keyword arguments:
     alias, team
     """
     add = add_alias(alias, team)

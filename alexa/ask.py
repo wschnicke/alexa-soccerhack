@@ -33,11 +33,14 @@ def last_match_result(team):
 @ask.intent('CurrentMatchStatusIntent')
 def current_match_score(team):
     #TODO: call api to get match score data, set score
-    one_score="1"
-    two_score="123"
+    team_score=1
+    opp_score=123
     opp="bad guys"
     minute ="20"
-    speech_text = render_template('current_status', team=team, team_score=one_score, opponent=opp, opp_score=two_score, minute = minute)
+    if (opp_score - team_score) > 4:
+            speech_text = render_template('you_are_dead')
+    else:
+        speech_text = render_template('current_status', team=team, team_score=team_score, opponent=opp, opp_score=opp_score, minute = minute)
     return statement(speech_text)
 
 @ask.intent('NextMatchTimeIntent')
@@ -69,7 +72,7 @@ def help_intent():
 def alias_team_intent(alias, team):
     """Add alias to alias database, called by Alexa
 
-    Keyword arguments:
+    Keyword arguments:liverpool next match
     alias, team
     """
     add = add_alias(alias, team)

@@ -23,9 +23,13 @@ last_result_draw: "{{ team }} drew the match against {{ opponent }}
   with a score of {{ team_score }} to {{ opp_score }}"
 
 track_team_success: "Successfully tracking {{team}}"
+
 track_team_already: "{{team}} is already tracked"
+
 track_team_fail: "Failed to track {{team}}"
 
 untrack_team_success: "Successfully untracked {{team}}"
+
 untrack_team_already: "{{team}} is already untracked"
+
 untrack_team_fail: "Failed to untrack {{team}}"

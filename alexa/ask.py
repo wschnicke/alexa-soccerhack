@@ -67,11 +67,13 @@ def last_match_result(team):
 def current_match_score(team):
     team_info = get_team(team)
     team_id = team_info[0]
-    match_id = alexa.api_requests.get_last_match_id(str(team_id))
+    match = alexa.api_requests.get_ongoing_matches(str(team_id))
     #guard clause for no match found
-    if(match_id == -1):
+    if(len(match) == 0):
         speech_text = render_template('no_current_match', team=team_info[1])
         return statement(speech_text)
+    #assuming a team can't play more than one game at once
+    match_id = match[0]['dbid']
     match_details = alexa.api_requests.request_match_details(str(match_id))
 
     current_state = match_details['currentState']
@@ -101,7 +103,7 @@ def current_match_score(team):
         elif(current_state == 7):
             minute = minute + 105
 
-    template = "tied"
+    template = "tied_"
     if(opp_score > team_score):
         template = "losing_"
     elif(team_score > opp_score):

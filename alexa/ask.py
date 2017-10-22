@@ -29,7 +29,7 @@ def last_match_result(team):
     match_id = alexa.api_requests.get_last_match_id(str(team_id))
     #guard clause for no match found
     if(match_id == -1):
-        speech_text = render_template('no_match_found')
+        speech_text = render_template('no_match_found_last_year')
         return statement(speech_text)
 
     match_details = alexa.api_requests.request_match_details(str(match_id))
@@ -45,14 +45,22 @@ def last_match_result(team):
         opp_score = match_details['awayGoals']
 
     #determine winner
+    template = 'draw'
     if side == match_details['outcome']['winner']:
         template='win'
     elif match_details['outcome']['winner'] == "draw":
         template='draw'
     else:
         template='loss'
+    #check for pks
+    pks = ""
+    if match_details['outcome']['type'] == "penalties":
+        pks = "_pks"
 
-    speech_text = render_template('last_result_' + template, team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
+
+
+
+    speech_text = render_template('last_result_' + template + pks, team=team, team_score=team_score, opponent=opponent, opp_score=opp_score)
     return statement(speech_text)
 
 @ask.intent('CurrentMatchStatusIntent')

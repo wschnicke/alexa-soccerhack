@@ -225,7 +225,6 @@ def highlights_intent(): # TODO: Add highlights for specific team search
     if len(updates) == 0:
         speech_text = render_template("no_highlights")
     else:
-        updates.reverse()
         for update in updates:
             print(update)
             speech_text += render_template(update["update"], **update)

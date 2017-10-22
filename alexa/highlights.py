@@ -9,7 +9,7 @@ from flask import render_template
 from web.flask import app
 
 DATE_DEFICIT = 5 # looks at this amount of updates on fresh updates / add teams
-REPORT_EVENT_COUNT = 5 # Report last 10 events maximum
+REPORT_EVENT_COUNT = 20 # Report last events maximum
 tracked_types = ["goal"]
 
 tracked_matches = [] # these are ongoing matches, ideally, remove when finished
@@ -79,7 +79,7 @@ def get_tracked_updates(new_matches = [], matches = tracked_matches):
                     "awayGoals": json["awayGoals"],
                     "homeTeam": json["homeTeam"],
                     "awayTeam": json["awayTeam"],
-                    "start": json["start"]
+                    "end": (json["start"] + (150 * 60 * 1000))
                 })
             tracked_matches.remove(match_id) # remove match from tracking list since it's over
             finished_matches.append(match_id)
@@ -113,6 +113,7 @@ def report_updates():
             updates_to_report.append(parse_event(event))
             eventCount += 1
         tracked_updates = []
+        update_to_reports = updates_to_report.sort(key=lambda u: u["happened_at"]) # sort by happenedAt
     return updates_to_report
 
 def count_updates():
@@ -137,7 +138,7 @@ def parse_event(event):
                     msg = g + " for " + scoring_team + " by " + event['scoringPlayer']['name']
                 print("GOAL: " + msg)
                 message(home_team, away_team, match_time, msg, event['homeGoals'], event['awayGoals'])
-                return {"update": "highlights_goal", "match_time":match_time, "goal":g, "scoring_player":event['scoringPlayer']['name'], "scoring_team":scoring_team, "other_team":other_team, "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
+                return {"update": "highlights_goal", "happened_at": event['happenedAt'], "match_time":match_time, "goal":g, "scoring_player":event['scoringPlayer']['name'], "scoring_team":scoring_team, "other_team":other_team, "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
             elif (event['type'] == 'penalty'):
                 # TODO
                 print('PENALTY: TBD')
@@ -155,7 +156,8 @@ def parse_event(event):
             msg = 'Game completed with winner: ' + winner
             print("OUTCOME: " + msg)
             message(home_team, away_team, None, msg, event['homeGoals'], event['awayGoals'])
-            return {"update":"highlights_outcome", "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
+            # TODO: Web app doesn't sort this properly :( since sort is done AFTER this function is called
+            return {"update":"highlights_outcome", "happened_at": event["end"], "home_team":home_team, "away_team":away_team, "home_team_score":event['homeGoals'], "away_team_score":event['awayGoals']}
     return None
 
 # Event comparator
